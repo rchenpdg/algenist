@@ -143,10 +143,7 @@
                 aria-label="Drag to compare before and after"
               >
               <div class="rs-compare__divider" aria-hidden="true">
-                <span class="rs-compare__handle">
-                  <svg width="10" height="16" viewBox="0 0 10 16" fill="none"><path d="M8 2L2 8l6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <svg width="10" height="16" viewBox="0 0 10 16" fill="none"><path d="M2 2l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
+                <span class="rs-compare__handle"></span>
               </div>
             </div>
           </div>
@@ -308,38 +305,36 @@
   .rs-compare__placeholder { background: #e8e8e8; }
   .rs-compare__label {
     position: absolute;
-    top: 18px;
-    z-index: 2;
-    padding: 6px 10px;
-    background: var(--rs-accent);
+    bottom: 14px;
+    z-index: 1;
     color: #fff;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: .06em;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: .14em;
     text-transform: uppercase;
+    text-shadow: 0 1px 2px rgba(0,0,0,.35);
     pointer-events: none;
   }
-  .rs-compare__label--before { left: 18px; }
-  .rs-compare__label--after { right: 18px; }
+  .rs-compare__label--before { left: 16px; }
+  .rs-compare__label--after { right: 16px; }
   .rs-compare__divider {
     position: absolute;
     top: 0; bottom: 0;
     left: var(--pos);
     z-index: 2;
-    width: 2px;
-    background: #fff;
+    width: 1px;
+    background: rgba(255,255,255,.9);
     transform: translateX(-50%);
     pointer-events: none;
   }
   .rs-compare__handle {
     position: absolute;
     top: 50%; left: 50%;
-    width: 64px; height: 64px;
-    display: flex; align-items: center; justify-content: center; gap: 12px;
+    width: 14px; height: 14px;
     border-radius: 50%;
     background: #fff;
-    color: var(--rs-accent);
-    box-shadow: 0 2px 12px rgba(0,0,0,.12);
+    box-shadow: 0 1px 3px rgba(0,0,0,.2);
     transform: translate(-50%, -50%);
   }
   /* Keyboard-accessible slider input, visually hidden */
@@ -363,7 +358,7 @@
     .rs__author { margin-bottom: 24px; }
     .rs-product { width: 100%; max-width: none; }
     .rs__dots { padding-left: 0; justify-content: center; }
-    .rs-compare__handle { width: 48px; height: 48px; gap: 8px; }
+    .rs-compare__handle { width: 12px; height: 12px; }
     .rs--full .rs__content { padding: 0 20px; }
   }
 
@@ -522,7 +517,7 @@
       ],
       "default": "1 / 1"
     },
-    { "type": "range", "id": "start_position", "label": "Starting divider position", "min": 10, "max": 90, "step": 5, "unit": "%", "default": 50 },
+    { "type": "range", "id": "start_position", "label": "Starting divider position", "min": 10, "max": 95, "step": 5, "unit": "%", "default": 90 },
     { "type": "checkbox", "id": "show_labels", "label": "Show Before / After labels", "default": true },
     { "type": "text", "id": "before_label", "label": "Before label", "default": "Before" },
     { "type": "text", "id": "after_label", "label": "After label", "default": "After" },
