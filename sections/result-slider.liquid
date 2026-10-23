@@ -20,13 +20,19 @@
 
 {%- if slide_count > 0 -%}
 <results-slider
-  class="rs{% if section.settings.section_width == 'full' %} rs--full{% endif %}"
+  class="rs{% if section.settings.section_width == 'full' %} rs--full{% endif %} rs--img-{{ section.settings.image_position | default: 'right' }} rs--text-{{ section.settings.text_align | default: 'left' }}"
   data-section-id="{{ section.id }}"
   data-autoplay="{{ section.settings.autoplay }}"
   data-speed="{{ section.settings.autoplay_speed | times: 1000 }}"
   style="
     --rs-accent: {{ section.settings.accent_color }};
-    --rs-bg: {{ section.settings.background_color }};
+    --rs-block-bg: {{ section.settings.background_color }};
+    --rs-section-bg: {{ section.settings.section_background_color }};
+    --rs-block-pad-y: {{ section.settings.block_padding_y }}px;
+    --rs-block-pad-x: {{ section.settings.block_padding_x }}px;
+    --rs-img-w: {{ section.settings.image_width }}%;
+    --rs-text-v: {{ section.settings.text_vertical | default: 'center' }};
+    --rs-img-v: {{ section.settings.image_vertical | default: 'center' }};
     --rs-text: {{ section.settings.text_color }};
     --rs-card-border: {{ section.settings.card_border_color }};
     --rs-thumb: {{ section.settings.thumb_size }}px;
@@ -159,31 +165,34 @@
 {%- endif -%}
 
 {% stylesheet %}
+  /* SECTION: always spans the full screen so its background fills edge to edge
+     (the theme otherwise puts section content in a centered column: .section > * { grid-column: 2 }) */
+  .section > .rs { grid-column: 1 / -1; }
   .rs {
     display: block;
-    background: var(--rs-bg, #fff);
+    background: var(--rs-section-bg, transparent);
     color: var(--rs-text, #111);
     padding: var(--rs-pad-top, 48px) 0 var(--rs-pad-bottom, 48px);
   }
+
+  /* BLOCK: the slide box. Page width = theme page width; Full width = edge to edge */
   .rs__inner {
-    max-width: 1440px;
+    box-sizing: border-box;
+    max-width: min(var(--page-width, 1440px), calc(100% - 2 * var(--page-margin, 20px)));
     margin: 0 auto;
-    padding: 0 24px;
+    padding: var(--rs-block-pad-y, 36px) var(--rs-block-pad-x, 56px);
+    background: var(--rs-block-bg, #fff);
   }
+  .rs--full .rs__inner { max-width: none; }
   .rs__track { display: grid; }
 
-  /* Full width: break out of the theme's centered page column (.section > * { grid-column: 2 })
-     so the image runs to the right edge of the screen */
-  .section > .rs--full { grid-column: 1 / -1; }
-  .rs--full .rs__inner { max-width: none; padding: 0; }
-  .rs--full .rs-compare { border-radius: 0; }
-
-  /* Slides stack in the same grid cell and cross-fade */
+  /* Slides stack in the same grid cell and cross-fade.
+     Columns: text | image (image ~46% of the block, like the mockup) */
   .rs__slide {
     grid-area: 1 / 1;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
+    grid-template-columns: minmax(0, 1fr) var(--rs-img-w, 46%);
+    column-gap: clamp(24px, 6%, 96px);
     align-items: center;
     opacity: 0;
     visibility: hidden;
@@ -195,11 +204,19 @@
     transition: opacity .5s ease;
   }
 
-  /* Left column */
-  .rs__content {
-    padding-left: clamp(0px, 8vw, 150px);
-    max-width: 560px;
-  }
+  /* Image on the left */
+  .rs--img-left .rs__slide { grid-template-columns: var(--rs-img-w, 46%) minmax(0, 1fr); }
+  .rs--img-left .rs__media { order: -1; }
+
+  /* Vertical alignment of text and image inside the block */
+  .rs__content { align-self: var(--rs-text-v, center); }
+  .rs__media { align-self: var(--rs-img-v, center); }
+
+  /* Text column + horizontal text alignment */
+  .rs__content { max-width: 560px; width: 100%; }
+  .rs--text-left .rs__content { justify-self: start; text-align: left; }
+  .rs--text-center .rs__content { justify-self: center; text-align: center; }
+  .rs--text-right .rs__content { justify-self: end; text-align: right; }
   .rs__eyebrow {
     margin: 0;
     color: var(--rs-accent);
@@ -241,6 +258,7 @@
     align-items: stretch; /* thumbnail spans the full text block */
     gap: 12px;
     box-sizing: border-box;
+    text-align: left;
     width: var(--rs-card-width, 380px);
     max-width: 100%;
     padding: 12px 18px 12px 10px;
@@ -297,6 +315,8 @@
   /* Dots line up with the product card's left edge
      (each 20px button centers a 9px dot, so pull left by the 5.5px inset) */
   .rs__dots { display: flex; gap: 2px; margin-top: 20px; margin-left: -5.5px; }
+  .rs--text-center .rs__dots { justify-content: center; margin-left: 0; }
+  .rs--text-right .rs__dots { justify-content: flex-end; margin-left: 0; margin-right: -5.5px; }
   .rs__dot {
     width: 20px; height: 20px;
     padding: 0; border: 0; background: none; cursor: pointer;
@@ -314,9 +334,8 @@
   /* Before / after compare */
   .rs-compare {
     position: relative;
-    aspect-ratio: var(--rs-ratio, 1 / 1);
+    aspect-ratio: var(--rs-ratio, 21 / 20);
     overflow: hidden;
-    border-radius: 4px;
     background: #eee;
     cursor: ew-resize;
     touch-action: pan-y;
@@ -384,13 +403,14 @@
 
   /* Tablet & mobile: image on top, text below */
   @media (max-width: 989px) {
-    .rs__slide { grid-template-columns: 1fr; gap: 28px; }
+    .rs__inner { padding: min(var(--rs-block-pad-y, 36px), 20px) min(var(--rs-block-pad-x, 56px), 20px); }
+    .rs__slide,
+    .rs--img-left .rs__slide { grid-template-columns: 1fr; row-gap: 28px; }
     .rs__media { order: -1; }
-    .rs__content { padding-left: 0; max-width: none; }
+    .rs__content { max-width: none; justify-self: stretch; }
     .rs__author { margin-bottom: 24px; }
     .rs-product { width: 100%; max-width: none; }
     .rs-compare__handle { width: 12px; height: 12px; }
-    .rs--full .rs__content { padding: 0 20px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -558,11 +578,13 @@
       "id": "image_ratio",
       "label": "Image shape",
       "options": [
+        { "value": "21 / 20", "label": "Mockup (slightly wide)" },
         { "value": "1 / 1", "label": "Square" },
+        { "value": "4 / 3", "label": "Landscape (4:3)" },
         { "value": "4 / 5", "label": "Portrait" },
         { "value": "5 / 4", "label": "Landscape" }
       ],
-      "default": "1 / 1"
+      "default": "21 / 20"
     },
     { "type": "range", "id": "start_position", "label": "Starting divider position", "min": 10, "max": 95, "step": 5, "unit": "%", "default": 90 },
     { "type": "checkbox", "id": "show_labels", "label": "Show Before / After labels", "default": true },
@@ -591,13 +613,60 @@
       ],
       "default": "full"
     },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        { "value": "right", "label": "Right" },
+        { "value": "left", "label": "Left" }
+      ],
+      "default": "right"
+    },
+    { "type": "range", "id": "image_width", "label": "Image width", "min": 30, "max": 60, "step": 1, "unit": "%", "default": 46 },
+    {
+      "type": "select",
+      "id": "image_vertical",
+      "label": "Image vertical alignment",
+      "options": [
+        { "value": "start", "label": "Top" },
+        { "value": "center", "label": "Middle" },
+        { "value": "end", "label": "Bottom" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "text_vertical",
+      "label": "Text vertical alignment",
+      "options": [
+        { "value": "start", "label": "Top" },
+        { "value": "center", "label": "Middle" },
+        { "value": "end", "label": "Bottom" }
+      ],
+      "default": "center"
+    },
+    { "type": "range", "id": "block_padding_y", "label": "Block padding (top/bottom)", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 36 },
+    { "type": "range", "id": "block_padding_x", "label": "Block padding (left/right)", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 56 },
 
     { "type": "header", "content": "Colors & spacing" },
     { "type": "color", "id": "accent_color", "label": "Accent", "default": "#3f7f78" },
-    { "type": "color", "id": "background_color", "label": "Background", "default": "#ffffff" },
+    { "type": "color", "id": "background_color", "label": "Block background", "default": "#ffffff" },
+    { "type": "color", "id": "section_background_color", "label": "Section background", "default": "#ffffff", "info": "Shows around the block when Section width is Page width." },
     { "type": "color", "id": "text_color", "label": "Text", "default": "#111111" },
-    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
-    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 }
+    { "type": "range", "id": "padding_top", "label": "Section top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "label": "Section bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 }
   ],
   "blocks": [
     {
