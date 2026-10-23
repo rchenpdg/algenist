@@ -20,7 +20,7 @@
 
 {%- if slide_count > 0 -%}
 <results-slider
-  class="rs"
+  class="rs{% if section.settings.section_width == 'full' %} rs--full{% endif %}"
   data-section-id="{{ section.id }}"
   data-autoplay="{{ section.settings.autoplay }}"
   data-speed="{{ section.settings.autoplay_speed | times: 1000 }}"
@@ -170,6 +170,12 @@
     padding: 0 24px;
   }
   .rs__track { display: grid; }
+
+  /* Full width: break out of the theme's centered page column (.section > * { grid-column: 2 })
+     so the image runs to the right edge of the screen */
+  .section > .rs--full { grid-column: 1 / -1; }
+  .rs--full .rs__inner { max-width: none; padding: 0; }
+  .rs--full .rs-compare { border-radius: 0; }
 
   /* Slides stack in the same grid cell and cross-fade */
   .rs__slide {
@@ -358,6 +364,7 @@
     .rs-product { width: 100%; max-width: none; }
     .rs__dots { padding-left: 0; justify-content: center; }
     .rs-compare__handle { width: 48px; height: 48px; gap: 8px; }
+    .rs--full .rs__content { padding: 0 20px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -526,6 +533,18 @@
     { "type": "header", "content": "Slider" },
     { "type": "checkbox", "id": "autoplay", "label": "Auto-rotate slides", "default": false },
     { "type": "range", "id": "autoplay_speed", "label": "Change slide every", "min": 3, "max": 12, "step": 1, "unit": "s", "default": 6 },
+
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        { "value": "full", "label": "Full width" },
+        { "value": "page", "label": "Page width" }
+      ],
+      "default": "full"
+    },
 
     { "type": "header", "content": "Colors & spacing" },
     { "type": "color", "id": "accent_color", "label": "Accent", "default": "#3f7f78" },
