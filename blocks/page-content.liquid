@@ -1,0 +1,16 @@
+{%- liquid
+  assign page_content = page.content
+  if page_content contains '<h1'
+    assign page_content = page_content | replace: '<h1', '<h2' | replace: '</h1>', '</h2>'
+  endif
+-%}
+<rte-formatter>
+  {{ page_content }}
+</rte-formatter>
+
+{% schema %}
+{
+  "name": "t:names.page_content",
+  "class": "rte"
+}
+{% endschema %}

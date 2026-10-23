@@ -1,0 +1,135 @@
+{%- doc -%}
+  Intended for use in the before-and-after section.
+
+  @param {object} [block] - The block object
+{%- enddoc -%}
+
+{% liquid
+  assign block_settings = block.settings
+
+  assign statistic_array = block.settings.text_content | split: "%"
+  assign percentage = statistic_array[0]
+  assign percentage_length = percentage | size | plus: 1
+  assign description = block.settings.text_content | slice: percentage_length, 1000 | strip
+%}
+
+
+{% capture attributes %}
+  class="statistic spacing-style"
+  data-cascade
+  style="
+    {% render 'spacing-padding', settings: block_settings %}
+    {% render 'typography-style', settings: block_settings %}
+    --width: {{ text_width }};
+    --max-width: var(--max-width--{{ type }}-{{ block_settings.max_width }});
+    {% if text_width == "100%" %}
+      --text-align: {{ block_settings.alignment }};
+    {% endif %}
+    {% if block_settings.background %}
+      --text-background-color: {{ block_settings.background_color | default: 'rgb(255 255 255 / 1.0)' }};
+      --text-corner-radius: {{ block_settings.corner_radius }}px;
+      --text-padding: max(var(--padding-2xs), calc((var(--text-corner-radius) + var(--padding-xs)) * (1 - cos(45deg))));
+    {% endif %}
+
+    --percentage: {{ percentage | default: 0 }};
+
+  "
+
+  {{ block.shopify_attributes }}
+{% endcapture %}
+
+<div {{ attributes }}>
+  <div class="percentage-wrapper">
+    <svg
+      width="70"
+      height="70"
+      viewBox="0 0 70 70"
+      class="radial-progress-bar"
+    >
+      <circle
+        class="circle-path"
+        cx="35"
+        cy="35"
+        fill="none"
+        r="34"
+        stroke="black"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+    </svg>
+
+    <div class="percentage">
+      {{ percentage | append: "%" }}
+    </div>
+  </div>
+
+  <div class="description body">
+    {{ description }}
+  </div>
+</div>
+
+{% stylesheet %}
+  .statistic {
+    display: flex;
+    column-gap: 1.25rem;
+  }
+
+  .scroll-trigger:has(.statistic) + .scroll-trigger:has(.statistic) .statistic::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-border);
+    z-index: 1;
+    animation: fade-out 0.5s ease-in forwards;
+  }
+
+
+  .percentage-wrapper {
+    display: grid;
+    flex: 0 0 70px;
+    aspect-ratio: 1;
+  }
+
+  .radial-progress-bar {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+  }
+
+  .percentage {
+    align-self: center;
+    justify-self: center;
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+  }
+
+  .statistic .description {
+    align-self: center;
+    max-width: 366px;
+    font-size: 1rem;
+  }
+
+  .circle-path {
+    /* Circumference ≈ 2 * π * 34 ≈ 213.6283 */
+    --circumference: 213.6283;
+
+    stroke: var(--color-primary-button-background);
+    stroke-dasharray: var(--circumference);
+    stroke-dashoffset: var(--circumference); /* start hidden */
+
+    transform: rotate(-90deg);              /* start at top */
+    transform-origin: 50% 50%;
+
+    transition: stroke-dashoffset 1.5s ease-out;
+  }
+
+  .scroll-trigger:not(.scroll-trigger--offscreen).animate--slide-in .circle-path {
+    /* draw to the percentage value */
+    stroke-dashoffset: calc(
+      var(--circumference)
+      - (var(--circumference) * var(--percentage) / 100)
+    );
+  }
+{% endstylesheet %}

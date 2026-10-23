@@ -1,0 +1,170 @@
+{%- doc -%}
+  Renders media block contents (used in _media and _media-without-appearance blocks)
+
+  @param {string} section_id - The section ID
+  @param {object} [block] - The block object
+  @param {boolean} [unset_image_tag] - if true, ignores the image focal point in the image
+{%- enddoc -%}
+
+{% liquid
+  assign block_settings = block.settings
+  assign show_image = false
+  assign show_video = false
+  assign show_before_after = false
+
+  if block_settings.media_type == 'image'
+    assign show_image = true
+  endif
+
+  if block_settings.media_type == 'video'
+    assign show_video = true
+  endif
+
+  if block_settings.media_type == 'before_after'
+    assign show_before_after = true
+  endif
+
+  assign media_link_name = block_settings.alt_text | strip
+  if media_link_name == blank
+    assign media_link_name = block_settings.image.alt | strip
+  endif
+  if media_link_name == blank
+    assign media_link_name = block_settings.caption | strip_html | strip
+  endif
+  if media_link_name == blank
+    assign media_link_name = block_settings.link | split: '?' | first | split: '/' | last | replace: '-', ' ' | strip
+  endif
+  if media_link_name == blank
+    for sblock in section.blocks
+      if sblock.type == '_content-without-appearance'
+        for child in sblock.blocks
+          assign candidate = child.settings.text | strip_html | strip
+          if candidate != blank
+            assign media_link_name = candidate
+            break
+          endif
+        endfor
+      endif
+      if media_link_name != blank
+        break
+      endif
+    endfor
+  endif
+  if media_link_name == blank and block_settings.image != blank
+    assign src_name = block_settings.image.src | split: '/' | last | split: '?' | first | split: '.' | first
+    assign media_link_name = src_name | replace: '_', ' ' | replace: '-', ' ' | strip
+  endif
+%}
+
+<div
+  class="
+    scroll-trigger
+    animate--fade-in
+    media-block
+    spacing-style
+    {% if block_settings.inherit_color_scheme == false %} color-{{ block_settings.color_scheme }}{% endif %}
+    {% if show_image and block_settings.image_position == 'contain' or show_video and block_settings.video_position == 'contain' %}
+      media-block--contain
+    {% endif %}
+    {% if show_before_after %}media--before-after{% endif %}
+  "
+  style="
+    {% render 'border-override', settings: block_settings %}
+    {% render 'spacing-style', settings: block_settings %}
+    --image-position: {{ block_settings.image_position }};
+    --video-position: {{ block_settings.video_position }};
+    --desktop-margin-left: {{ block_settings.margin-left }}px;
+    --desktop-margin-right: {{ block_settings.margin-right }}px;
+  "
+  {{ block.shopify_attributes }}
+>
+  {%- if show_image -%}
+    {% capture image_tag %}
+      {% if block_settings.image != blank %}
+        {% render 'image',
+          image: block_settings.image,
+          class: 'media-block__media border-style scroll-trigger animate--fade-in',
+          unset_image_tag: unset_image_tag,
+          alt: media_link_name
+        %}
+      {% else %}
+        <div class="placeholder-image media-block__media border-style">
+          {{ 'detailed-apparel-1' | placeholder_svg_tag: 'hero__image' }}
+        </div>
+      {% endif %}
+    {% endcapture %}
+
+    {% if block_settings.link != blank %}
+      <a
+        href="{{ block_settings.link }}"
+        class="media-block__media-link"
+        aria-label="{{ media_link_name | escape }}"
+      >
+        {{ image_tag }}
+      </a>
+    {% else %}
+      {{ image_tag }}
+    {% endif %}
+  {%- elsif show_video -%}
+    {% render 'video',
+      video: block_settings.video,
+      video_autoplay: block_settings.video_autoplay,
+      video_loop: block_settings.video_loop,
+      video_class: 'media-block__media media-block__media--video border-style scroll-trigger animate--fade-in',
+      section_id: section_id
+    %}
+  {%- elsif show_before_after -%}
+    {% render 'before-after',
+      image_before: block_settings.image_before,
+      image_after: block_settings.image_after,
+      border_radius: block_settings.border_radius,
+      caption: block_settings.caption,
+      section_id: section_id
+    %}
+  {%- else -%}
+    <div class="placeholder-image media-block__media border-style">
+      {{ 'hero-apparel-3' | placeholder_svg_tag }}
+    </div>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .media-block {
+    overflow: hidden;
+    position: relative;
+
+    @media screen and (min-width: 750px) {
+      min-height: var(--media-height);
+      margin-left: var(--desktop-margin-left);
+      margin-right: var(--desktop-margin-right);
+    }
+  }
+
+  .media-block__media {
+    height: var(--media-height-mobile, auto);
+    object-fit: var(--image-position, 'cover');
+    object-position: center center;
+    width: 100%;
+
+    @media screen and (min-width: 750px) {
+      height: 100%;
+      position: absolute;
+    }
+  }
+
+  deferred-media[class].media-block__media
+    :is(.deferred-media__poster-button img, .deferred-media__poster-button ~ video) {
+    object-fit: var(--video-position, 'cover');
+  }
+
+  /* This is to support corner radius on video and align the video to the center of the block */
+  .media-block__media--video {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (max-width: 749px) {
+      --media-height-mobile: auto;
+    }
+  }
+{% endstylesheet %}

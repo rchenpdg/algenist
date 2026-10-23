@@ -1,0 +1,166 @@
+{% liquid
+  assign unset_image_tag = false
+  if block.settings.image_position == 'contain'
+    assign unset_image_tag = true
+  endif
+%}
+
+{% render 'media', unset_image_tag: unset_image_tag, section_id: section.id %}
+
+{% schema %}
+{
+  "name": "t:names.media",
+  "tag": null,
+  "settings": [
+    {
+      "type": "select",
+      "id": "media_type",
+      "label": "t:settings.type",
+      "options": [
+        {
+          "value": "image",
+          "label": "t:options.image"
+        },
+        {
+          "value": "video",
+          "label": "t:options.video"
+        },
+        {
+          "value": "before_after",
+          "label": "Before/After"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:settings.image",
+      "info": "Recommended: 2560 x 1440px",
+      "visible_if": "{{ block.settings.media_type == 'image' }}"
+    },
+    {
+      "type": "text",
+      "id": "alt_text",
+      "label": "Image alt text",
+      "info": "Describe the image for screen readers. Used when the file has no alt.",
+      "visible_if": "{{ block.settings.media_type == 'image' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_before",
+      "label": "Before Image",
+      "info": "Recommended: 2000 x 2000px (1:1)",
+      "visible_if": "{{ block.settings.media_type == 'before_after' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_after",
+      "label": "After Image",
+      "info": "Recommended: 2000 x 2000px (1:1)",
+      "visible_if": "{{ block.settings.media_type == 'before_after' }}"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "caption",
+      "label": "Caption",
+      "visible_if": "{{ block.settings.media_type == 'before_after' }}"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "t:settings.link",
+      "visible_if": "{{ block.settings.media_type == 'image'  }}"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "t:settings.video",
+      "visible_if": "{{ block.settings.media_type == 'video' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "video_loop",
+      "label": "t:settings.loop",
+      "default": true,
+      "visible_if": "{{ block.settings.media_type == 'video' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "video_autoplay",
+      "label": "t:settings.autoplay",
+      "default": false,
+      "visible_if": "{{ block.settings.media_type == 'video' }}"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "t:settings.image_position",
+      "options": [
+        {
+          "value": "cover",
+          "label": "t:options.cover"
+        },
+        {
+          "value": "contain ",
+          "label": "t:options.contain"
+        }
+      ],
+      "default": "cover",
+      "visible_if": "{{ block.settings.media_type == 'image' }}"
+    },
+    {
+      "type": "select",
+      "id": "video_position",
+      "label": "t:settings.video_position",
+      "options": [
+        {
+          "value": "cover",
+          "label": "t:options.cover"
+        },
+        {
+          "value": "contain",
+          "label": "t:options.contain"
+        }
+      ],
+      "default": "cover",
+      "visible_if": "{{ block.settings.media_type == 'video' }}"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "t:settings.border_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "margin-left",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin-right",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.media"
+    }
+  ]
+}
+{% endschema %}

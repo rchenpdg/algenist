@@ -1,0 +1,48 @@
+{%- doc -%}
+  Renders a "Notify Me When Available" button for out-of-stock variants.
+  This button opens the back-in-stock modal.
+
+  @param {object} product - The product object
+  @param {object} variant - The variant object (optional, defaults to selected_or_first_available_variant)
+  @param {string} [class] - Additional CSS classes for the button
+{%- enddoc -%}
+
+{% liquid
+  assign variant = variant | default: product.selected_or_first_available_variant
+  assign button_text = settings.klaviyo_back_in_stock_button_text | default: 'Notify Me When Available'
+%}
+
+{% if settings.klaviyo_public_api_key != blank and settings.klaviyo_back_in_stock_enabled %}
+  <back-in-stock-button
+    class="back-in-stock-button-wrapper"
+    data-variant-id="{{ variant.id }}"
+    data-product-name="{{ product.title | escape }}"
+    data-variant-name="{{ variant.title | escape }}"
+    ref="backInStockButton"
+  >
+    <button
+      type="button"
+      class="button {{ class | default: 'button-secondary' }} back-in-stock-button"
+    >
+      <span class="back-in-stock-button__text">{{ button_text }}</span>
+    </button>
+  </back-in-stock-button>
+{% endif %}
+
+{% stylesheet %}
+  .back-in-stock-button-wrapper {
+    width: 100%;
+  }
+
+  .back-in-stock-button {
+    width: 100%;
+    padding-block: var(--padding-lg);
+  }
+
+  .back-in-stock-button__text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gap-xs);
+  }
+{% endstylesheet %}

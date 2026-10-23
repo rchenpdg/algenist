@@ -1,0 +1,119 @@
+{% assign block_settings = block.settings %}
+
+<div class="quiz-link-row spacing-style {% if block_settings.show_divider %}has-divider{% endif %}"
+  style="{% render 'spacing-style', settings: block_settings %}"
+>
+  <a href="{{ block_settings.link_url }}" class="quiz-link-row__link">
+    {% if block_settings.image_upload %}
+      <div class="quiz-link-row__image-wrapper">
+        <div class="media media--circle">
+          {{ block_settings.image_upload | image_url: width: 200 | image_tag: loading: 'lazy', alt: block_settings.heading | escape }}
+        </div>
+      </div>
+    {% endif %}
+    <h2 style="--h1-font-size: {{ settings.type_size_h1 }}px;" class="quiz-link-row__heading h2">{{ block_settings.heading }}</h2>
+    <span class="svg-wrapper icon-arrow-circle">
+      {{- 'icon-arrow-circle.svg' | inline_asset_content -}}
+  </span>
+  </a>
+</div>
+
+{% stylesheet %}
+.quiz-link-row.has-divider {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.quiz-link-row .quiz-link-row__link {
+  display: grid;
+  grid-template-columns: 40px 1fr 48px;
+  align-items: center;
+  gap: 12px;
+}
+
+.quiz-link-row .svg-wrapper {
+  width: 48px;
+  height: 48px;
+}
+
+.quiz-link-row .svg-wrapper > svg {
+  width: 100%;
+  height: 100%;
+}
+
+.quiz-link-row__heading {
+  margin: 0;
+  line-height: 1;
+}
+
+@media screen and (min-width: 768px) {
+  .quiz-link-row .quiz-link-row__link {
+    grid-template-columns: 75px 1fr 48px;
+    gap: 32px;
+  }
+
+  .quiz-link-row__heading.h2 {
+    font-size: var(--h1-font-size);
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Quiz Link Row",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:settings.heading",
+      "default": "t:text_defaults.accordion_heading"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_upload",
+      "label": "t:settings.image_icon",
+      "info": "Recommended: 200 x 200px"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show bottom divider line",
+      "default": true
+    },
+        {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+    "presets": [
+    {
+      "name": "Quiz Link Row",
+      "category": "Content"
+    }
+  ]
+}
+{% endschema %}

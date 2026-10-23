@@ -1,0 +1,18 @@
+<script src="{{ 'component-product-navigation.js' | asset_url }}" defer="defer"></script>
+
+<product-navigation class="nav-hidden">
+    {{ 'component-product-navigation.css' | asset_url | stylesheet_tag }}
+    <div class="product-nav__inner">
+        <div class="product-nav__header mobile:hidden tablet:hidden">
+            <h2 class="product-nav__header-title">{{ product.title }}</h2>
+            <div>
+                <div class="media media--square">
+                    {{ product.featured_image | image_url: width: 500 | image_tag: alt: product.title, class: 'product-navigation__image' }}
+                </div>
+            </div>
+
+        </div>
+
+        {% render 'product-nav-buttons', product: product, section_id: section.id %}
+    </div>
+</product-navigation>

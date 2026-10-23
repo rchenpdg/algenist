@@ -1,0 +1,1847 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "blocks": {
+        "page-content": {
+          "type": "page-content",
+          "settings": {},
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "page-content"
+      ],
+      "custom_css": [],
+      "settings": {
+        "content_direction": "column",
+        "gap": 100,
+        "color_scheme": "",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "section_yYLPXK": {
+      "type": "section",
+      "blocks": {
+        "group_iRtYd9": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "link": "",
+            "open_in_new_tab": false,
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "solid",
+            "border_width": 1,
+            "border_opacity": 10,
+            "border_radius": 0,
+            "placeholder": "",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "padding-block-start": 0,
+            "padding-block-end": 28,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_7Pi6KG": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h1>The Science of Algenist</h1>",
+                "width": "fit-content",
+                "max_width": "narrow",
+                "alignment": "left",
+                "type_preset": "h2",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_hzYNY7": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p><strong>Our results-driven formals are powered by skin superfood Alguronic Acid®</strong> </p><p>Our patented, proprietary technology, clinically developed to minimize the appearance of fine lines and wrinkles, while fighting free radicals that enhance signs of aging.</p><p>Though effective alone, Alguronic Acid® also boosts the performance of other skincare ingredients, helping them work harder and more effectively—this is why Algenist products can transform skin in as few as 10 days.</p><p>Naturally sourced and sustainably produced through biotechnology, our ingredients are traceable, natural, and botanical always.</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_7Pi6KG",
+            "text_hzYNY7"
+          ]
+        },
+        "accordion_MBzFkL": {
+          "type": "accordion",
+          "name": "t:names.accordion",
+          "settings": {
+            "icon": "caret",
+            "dividers": true,
+            "type_preset": "h1",
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 100,
+            "padding-inline-end": 100
+          },
+          "blocks": {
+            "accordion_row_Y3tqGb": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Patented Alguronic Acid®",
+                "name": "",
+                "open_by_default": false,
+                "icon": "none",
+                "image_upload": "shopify://shop_images/algenist-multi-peptide.png",
+                "width": 90
+              },
+              "blocks": {
+                "text_KmzTLq": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Alguronic Acid® is our patented, proprietary technology, clinically developed to minimize the appearance of fine lines and wrinkles, while fighting free radicals that enhance signs of aging.</p><p>Though effective alone, Alguronic Acid® also boosts the performance of other skincare ingredients, helping them work harder and more effectively—this is why Algenist products can transform skin in as few as 10 days.</p><p>Naturally sourced and sustainably produced from algae. Clinically proven to visibly minimize the appearance of fine lines and wrinkles, while boosting benefits of other active ingredients.<br/></p><ul><li>Hydrates, nourishes, and softens skin</li><li>Restores radiance</li><li>Supports natural skin cell repair</li></ul><p></p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 100,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "button_U7ehah": {
+                  "type": "button",
+                  "name": "t:names.button",
+                  "disabled": true,
+                  "settings": {
+                    "label": "Shop products with alguronic acid",
+                    "link": "shopify://collections/all",
+                    "open_in_new_tab": false,
+                    "style_class": "link",
+                    "width": "fit-content",
+                    "custom_width": 100,
+                    "width_mobile": "fit-content",
+                    "custom_width_mobile": 100,
+                    "enable_more_padding": false,
+                    "padding-block-start": 30,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 100,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_KmzTLq",
+                "button_U7ehah"
+              ]
+            },
+            "accordion_row_tTH3Hh": {
+              "type": "_accordion-row",
+              "name": "t:names.accordion_row",
+              "settings": {
+                "heading": "Microalgae Oil",
+                "name": "",
+                "open_by_default": false,
+                "icon": "none",
+                "image_upload": "shopify://shop_images/image_94.png",
+                "width": 90
+              },
+              "blocks": {
+                "text_ax47PP": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Microalgae oil, contained in micro-bubbles that burst when applied to skin, delivers nutrients, moisture, and radiance. This ingredient is rich in beneficial fatty acids like Omega 3, Omega 6, and Oleic Acid, as well as antioxidants, micronutrients, and Vitamins A, B, D, & E that support maximum replenishment.</p><ul><li>Hydrates, nourishes, and softens skin</li><li>Supports natural skin cell repair</li><li>Softens and smoothes surface texture</li></ul>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "spacer_fzdFTr": {
+                  "type": "spacer",
+                  "name": "t:names.spacer",
+                  "settings": {
+                    "size": "percent",
+                    "percent_size": 100,
+                    "pixel_size": 120,
+                    "custom_mobile_size": false,
+                    "size_mobile": "percent",
+                    "percent_size_mobile": 100,
+                    "pixel_size_mobile": 120
+                  },
+                  "blocks": {}
+                },
+                "spacer_w3GgCa": {
+                  "type": "spacer",
+                  "name": "t:names.spacer",
+                  "settings": {
+                    "size": "percent",
+                    "percent_size": 100,
+                    "pixel_size": 120,
+                    "custom_mobile_size": false,
+                    "size_mobile": "percent",
+                    "percent_size_mobile": 100,
+                    "pixel_size_mobile": 120
+                  },
+                  "blocks": {}
+                },
+                "button_yVXDXN": {
+                  "type": "button",
+                  "name": "t:names.button",
+                  "settings": {
+                    "label": "GENIUS Ultimate Anti-Aging Eye Cream",
+                    "link": "shopify://products/genius-ultimate-anti-aging-cream",
+                    "open_in_new_tab": false,
+                    "style_class": "button",
+                    "width": "fit-content",
+                    "custom_width": 100,
+                    "width_mobile": "fit-content",
+                    "custom_width_mobile": 100,
+                    "enable_more_padding": false,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_ax47PP",
+                "spacer_fzdFTr",
+                "spacer_w3GgCa",
+                "button_yVXDXN"
+              ]
+            },
+            "accordion_row_jJnrXW": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Biomimetic Collagen",
+                "name": "",
+                "open_by_default": false,
+                "icon": "none",
+                "image_upload": "shopify://shop_images/algenist-biometic-collagen.png",
+                "width": 90
+              },
+              "blocks": {
+                "text_mem6md": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Biomimetic CollagenOur exclusive Biomimetic Collagen is created by binding vegetable fibers together to create vegan, plant-based amino acids. The result is an ingredient nearly identical in structure and function to animal-derived collagen.</p><ul><li>Visibly improves texture and suppleness</li><li>Plumps and strengthens skin</li><li>Supports skin’s barrier</li></ul>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 100,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "button_VKpF4V": {
+                  "type": "button",
+                  "name": "t:names.button",
+                  "settings": {
+                    "label": "GENIUS Sleeping Collagen®",
+                    "link": "shopify://collections/all",
+                    "open_in_new_tab": false,
+                    "style_class": "link",
+                    "width": "fit-content",
+                    "custom_width": 100,
+                    "width_mobile": "fit-content",
+                    "custom_width_mobile": 100,
+                    "enable_more_padding": false,
+                    "padding-block-start": 30,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 100,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_mem6md",
+                "button_VKpF4V"
+              ]
+            },
+            "accordion_row_zXEDFe": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Niacinamide",
+                "name": "",
+                "open_by_default": false,
+                "icon": "none",
+                "image_upload": "shopify://shop_images/algenist_niacinamide.jpg",
+                "width": 90
+              },
+              "blocks": {
+                "text_8wNENx": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>NiacinamideThis vitamin helps preserve skin barrier integrity and reduce transepidermal water loss, for a brighter, smoother, and more toned texture with refined pore appearance.</p><ul><li>Visibly improves texture and suppleness</li><li>Plumps and strengthens skin</li><li>Conditioning and nourishing</li></ul>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 100,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "button_wyy9Ci": {
+                  "type": "button",
+                  "name": "t:names.button",
+                  "settings": {
+                    "label": "GENIUS Liquid Skin Resurfacing 2% BHA Toner",
+                    "link": "shopify://products/genius-liquid-skin-resurfacing-2-bha-toner",
+                    "open_in_new_tab": false,
+                    "style_class": "link",
+                    "width": "fit-content",
+                    "custom_width": 100,
+                    "width_mobile": "fit-content",
+                    "custom_width_mobile": 100,
+                    "enable_more_padding": false,
+                    "padding-block-start": 30,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 100,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_8wNENx",
+                "button_wyy9Ci"
+              ]
+            },
+            "accordion_row_mRW4Yh": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Multi-Peptide Complex",
+                "name": "",
+                "open_by_default": false,
+                "icon": "none",
+                "image_upload": "shopify://shop_images/algenist-microalgae-oil.png",
+                "width": 90
+              },
+              "blocks": {
+                "text_hr8NcD": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>By enhancing collagen production and supporting skin elasticity, peptides promote a more youthful complexion, while targeting fine lines and wrinkles and improving skin firmness.</p><ul><li>Hydrates, nourishes, and softens skin</li><li>Restores radiance</li><li>Supports natural skin cell repair</li></ul>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 100,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "button_yaPRbF": {
+                  "type": "button",
+                  "name": "t:names.button",
+                  "settings": {
+                    "label": "Triple Algae Eye Renewal Balm",
+                    "link": "shopify://products/triple-algae-eye-renewal-balm",
+                    "open_in_new_tab": false,
+                    "style_class": "link",
+                    "width": "fit-content",
+                    "custom_width": 100,
+                    "width_mobile": "fit-content",
+                    "custom_width_mobile": 100,
+                    "enable_more_padding": false,
+                    "padding-block-start": 30,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 100,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_hr8NcD",
+                "button_yaPRbF"
+              ]
+            },
+            "accordion_row_GQPDWd": {
+              "type": "_accordion-row",
+              "name": "t:names.accordion_row",
+              "settings": {
+                "heading": "Retinol & Green Algae",
+                "name": "",
+                "open_by_default": false,
+                "icon": "none",
+                "image_upload": "shopify://shop_images/image_6_1.jpg",
+                "width": 90
+              },
+              "blocks": {
+                "text_hPRrzz": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Time-released retinol pairs with a retinoid-like green algae. Together, they work to resurface and exfoliate without causing redness or irritation.</p><ul><li>Reduces deep wrinkles</li><li>Tightens and firms</li></ul>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_hPRrzz"
+              ]
+            },
+            "accordion_row_PJ9teN": {
+              "type": "_accordion-row",
+              "name": "t:names.accordion_row",
+              "settings": {
+                "heading": "Vitamin C+",
+                "name": "",
+                "open_by_default": false,
+                "icon": "none",
+                "image_upload": "shopify://shop_images/image_23.jpg",
+                "width": 90
+              },
+              "blocks": {
+                "text_8xmxA8": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>This powerful antioxidant brightens skin, while fighting free radicals and delivering anti-inflammatory properties. Our unique formula—a long-lasting derivative of Vitamin C+ is key to supporting collagen production.</p><ul><li>Reduces the appearance of dark spots and discoloration</li><li>Smooths texture and even skin tone</li><li>Reveals a brighter overall complexion</li></ul>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_8xmxA8"
+              ]
+            }
+          },
+          "block_order": [
+            "accordion_row_Y3tqGb",
+            "accordion_row_tTH3Hh",
+            "accordion_row_jJnrXW",
+            "accordion_row_zXEDFe",
+            "accordion_row_mRW4Yh",
+            "accordion_row_GQPDWd",
+            "accordion_row_PJ9teN"
+          ]
+        }
+      },
+      "block_order": [
+        "group_iRtYd9",
+        "accordion_MBzFkL"
+      ],
+      "custom_css": [
+        ".group-block.border-style {border-width: 0 0 var(--border-width);}",
+        "accordion-custom img {aspect-ratio: 1; border-radius: 100%; object-fit: cover;}",
+        "accordion-custom .details__header {gap: 32px;}",
+        "accordion-custom summary .svg-wrapper,accordion-custom summary .icon-caret.svg-wrapper svg {width: 48px; height: 48px;}",
+        "accordion-custom details {padding-block: 32px;}",
+        "@media screen and (max-width: 749px) {.accordion {padding-left: 0; padding-right: 0; } accordion-custom .details__header {gap: 12px; } .details__heading {font-size: 28px; width: 66%; }}"
+      ],
+      "name": "Featured Ingredients",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 28,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "media_with_content_q734NN": {
+      "type": "media-with-content",
+      "blocks": {
+        "media": {
+          "type": "_media-without-appearance",
+          "static": true,
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/algenist-ingredients-hero.png",
+            "alt_text": "Algenist ingredients",
+            "caption": "",
+            "link": "",
+            "video_loop": true,
+            "video_autoplay": false,
+            "image_position": "cover",
+            "video_position": "cover",
+            "border_radius": 4,
+            "margin-left": 0,
+            "margin-right": 0
+          },
+          "blocks": {}
+        },
+        "content": {
+          "type": "_content-without-appearance",
+          "static": true,
+          "settings": {
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 20
+          },
+          "blocks": {
+            "text_F3aKAD": {
+              "type": "text",
+              "name": "t:names.caption",
+              "settings": {
+                "text": "<p>The Science of Algenist:</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h5",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_q9g9YP": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h2>Patented Alguronic Acid</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h1",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 12,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_z4hDG9": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p>Naturally sourced and sustainably produced from algae. Clinically proven to visibly minimize the appearance of fine lines and wrinkles, while boosting benefits of other active ingredients.</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "button_ec8mUz": {
+              "type": "button",
+              "name": "t:names.button",
+              "settings": {
+                "label": "Explore the Collection",
+                "link": "shopify://collections/all",
+                "open_in_new_tab": false,
+                "style_class": "button",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100,
+                "enable_more_padding": false,
+                "padding-block-start": 12,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_F3aKAD",
+            "text_q9g9YP",
+            "text_z4hDG9",
+            "button_ec8mUz"
+          ]
+        }
+      },
+      "disabled": true,
+      "name": "Editorial / The Science of Algenist",
+      "settings": {
+        "media_position": "left",
+        "media_width": "medium",
+        "media_height": "60svh",
+        "section_width": "page-width",
+        "extend_media": false,
+        "color_scheme": "scheme-2",
+        "padding-block-start": 40,
+        "padding-block-end": 40
+      }
+    },
+    "media_with_content_DWCM7k": {
+      "type": "media-with-content",
+      "blocks": {
+        "media": {
+          "type": "_media-without-appearance",
+          "static": true,
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/2025_Algenist_KP_4272-Photo_09_Eye_Balm_Moisturizer_key_stacked_Full_e8253267-0de4-445c-af53-a78e20b91e25.jpg",
+            "alt_text": "Algenist eye balm and moisturizer",
+            "caption": "",
+            "link": "",
+            "video_loop": true,
+            "video_autoplay": false,
+            "image_position": "cover",
+            "video_position": "cover",
+            "border_radius": 4,
+            "margin-left": 0,
+            "margin-right": 0
+          },
+          "blocks": {}
+        },
+        "content": {
+          "type": "_content-without-appearance",
+          "static": true,
+          "settings": {
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 20
+          },
+          "blocks": {
+            "text_E4XXkJ": {
+              "type": "text",
+              "name": "t:names.caption",
+              "settings": {
+                "text": "<p>Why it works</p>",
+                "width": "100%",
+                "max_width": "narrow",
+                "alignment": "left",
+                "type_preset": "h5",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 60,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "group_rdB7AV": {
+              "type": "group",
+              "settings": {
+                "link": "",
+                "open_in_new_tab": false,
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 20,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "placeholder": "",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 60,
+                "padding-inline-end": 20
+              },
+              "blocks": {
+                "text_JnFWNm": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<h2>Our results-driven formulas are powered by skin superfood Alguronic Acid®</h2>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "h2",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_JnFWNm"
+              ]
+            },
+            "group_wYjULh": {
+              "type": "group",
+              "name": "Promotes skin cell turnover",
+              "settings": {
+                "link": "",
+                "open_in_new_tab": false,
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "placeholder": "",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 60,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "icon_jGhQAj": {
+                  "type": "icon",
+                  "name": "t:names.icon",
+                  "settings": {
+                    "icon": "recycle",
+                    "image_upload": "shopify://shop_images/icon-recycle.svg",
+                    "width": 24,
+                    "link": "",
+                    "open_in_new_tab": false
+                  },
+                  "blocks": {}
+                },
+                "text_xwYwae": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Minimizes the appearance of fine lines and wrinkles</p>",
+                    "width": "100%",
+                    "max_width": "narrow",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "icon_jGhQAj",
+                "text_xwYwae"
+              ]
+            },
+            "divider_yqJPhz": {
+              "type": "_divider",
+              "name": "t:names.divider",
+              "settings": {
+                "thickness": 1,
+                "corner_radius": "square",
+                "width_percent": 100,
+                "padding-block-start": 0,
+                "padding-block-end": 0
+              },
+              "blocks": {}
+            },
+            "group_DBy8F3": {
+              "type": "group",
+              "name": "Promotes skin cell turnover",
+              "settings": {
+                "link": "",
+                "open_in_new_tab": false,
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "placeholder": "",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 60,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "icon_3ypPxK": {
+                  "type": "icon",
+                  "name": "t:names.icon",
+                  "settings": {
+                    "icon": "recycle",
+                    "image_upload": "shopify://shop_images/icon-wave.svg",
+                    "width": 24,
+                    "link": "",
+                    "open_in_new_tab": false
+                  },
+                  "blocks": {}
+                },
+                "text_J9kaVb": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Reduces fine lines + wrinkles</p>",
+                    "width": "100%",
+                    "max_width": "narrow",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "icon_3ypPxK",
+                "text_J9kaVb"
+              ]
+            },
+            "divider_P9h4fW": {
+              "type": "_divider",
+              "name": "t:names.divider",
+              "settings": {
+                "thickness": 1,
+                "corner_radius": "square",
+                "width_percent": 100,
+                "padding-block-start": 0,
+                "padding-block-end": 0
+              },
+              "blocks": {}
+            },
+            "group_3dkeba": {
+              "type": "group",
+              "name": "Promotes skin cell turnover",
+              "settings": {
+                "link": "",
+                "open_in_new_tab": false,
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "placeholder": "",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 60,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "icon_y7EaDJ": {
+                  "type": "icon",
+                  "name": "t:names.icon",
+                  "settings": {
+                    "icon": "recycle",
+                    "image_upload": "shopify://shop_images/icon-firmness.svg",
+                    "width": 24,
+                    "link": "",
+                    "open_in_new_tab": false
+                  },
+                  "blocks": {}
+                },
+                "text_YV6xff": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Improves firmness</p>",
+                    "width": "100%",
+                    "max_width": "narrow",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "icon_y7EaDJ",
+                "text_YV6xff"
+              ]
+            },
+            "divider_ACNJTJ": {
+              "type": "_divider",
+              "name": "t:names.divider",
+              "settings": {
+                "thickness": 1,
+                "corner_radius": "square",
+                "width_percent": 100,
+                "padding-block-start": 0,
+                "padding-block-end": 0
+              },
+              "blocks": {}
+            },
+            "group_yWJXEw": {
+              "type": "group",
+              "name": "Promotes skin cell turnover",
+              "settings": {
+                "link": "",
+                "open_in_new_tab": false,
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "placeholder": "",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 60,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "icon_CxCJDK": {
+                  "type": "icon",
+                  "name": "t:names.icon",
+                  "settings": {
+                    "icon": "recycle",
+                    "image_upload": "shopify://shop_images/icon-radiance.svg",
+                    "width": 24,
+                    "link": "",
+                    "open_in_new_tab": false
+                  },
+                  "blocks": {}
+                },
+                "text_Ykzwtw": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Delivers smoother, more radiant skin</p>",
+                    "width": "100%",
+                    "max_width": "narrow",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "icon_CxCJDK",
+                "text_Ykzwtw"
+              ]
+            }
+          },
+          "block_order": [
+            "text_E4XXkJ",
+            "group_rdB7AV",
+            "group_wYjULh",
+            "divider_yqJPhz",
+            "group_DBy8F3",
+            "divider_P9h4fW",
+            "group_3dkeba",
+            "divider_ACNJTJ",
+            "group_yWJXEw"
+          ]
+        }
+      },
+      "custom_css": [
+        ".divider {padding-inline: 60px;}"
+      ],
+      "name": "Editorial / Why It Works",
+      "settings": {
+        "media_position": "right",
+        "media_width": "medium",
+        "media_height": "60svh",
+        "section_width": "page-width",
+        "extend_media": false,
+        "color_scheme": "scheme-4",
+        "padding-block-start": 40,
+        "padding-block-end": 40
+      }
+    },
+    "product_list_EEcXQT": {
+      "type": "product-list",
+      "blocks": {
+        "static-header": {
+          "type": "_product-list-content",
+          "name": "t:names.header",
+          "static": true,
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": false,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-end",
+            "align_baseline": true,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "scheme-20033c28-d3b0-4fc8-b258-9b716ed3d989",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "solid",
+            "border_width": 1,
+            "border_opacity": 10,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 28,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_list_text_R7hEYx": {
+              "type": "_product-list-text",
+              "name": "t:names.collection_title",
+              "settings": {
+                "text": "<h3>Powered by Alguronic Acid®</h3>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_list_text_R7hEYx"
+          ]
+        },
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "t:names.product_card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 0,
+            "inherit_color_scheme": false,
+            "color_scheme": "scheme-0fb0c081-0ae7-4855-b461-dbdecc3ac93b",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 4,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_card_gallery_Xhe3Wq": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "square",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_card_group_tzVDd8": {
+              "type": "_product-card-group",
+              "name": "t:names.group",
+              "settings": {
+                "link": "",
+                "open_in_new_tab": false,
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "stretch",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 4,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fill",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": true,
+                "overlay_color": "#ffffff",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "padding-block-start": 26,
+                "padding-block-end": 26,
+                "padding-inline-start": 26,
+                "padding-inline-end": 26
+              },
+              "blocks": {
+                "product_title_jMmjzy": {
+                  "type": "product-title",
+                  "name": "t:names.product_title",
+                  "settings": {
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1.125rem",
+                    "line_height": "loose",
+                    "letter_spacing": "tight",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground-heading)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 4,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "text_rK8P9m": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>{{ closest.product.metafields.custom.tagline.value }}</p>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "review_jgbQWK": {
+                  "type": "review",
+                  "name": "t:names.product_review_stars",
+                  "settings": {
+                    "stars_style": "single",
+                    "show_number": false,
+                    "rating_color": "foreground",
+                    "type_preset": "paragraph",
+                    "alignment": "left"
+                  },
+                  "blocks": {}
+                },
+                "quick_add_button_tE7W7w": {
+                  "type": "quick-add-button",
+                  "name": "Quick add button",
+                  "settings": {
+                    "padding-block-start": 12,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "product_title_jMmjzy",
+                "text_rK8P9m",
+                "review_jgbQWK",
+                "quick_add_button_tE7W7w"
+              ]
+            }
+          },
+          "block_order": [
+            "product_card_gallery_Xhe3Wq",
+            "product_card_group_tzVDd8"
+          ]
+        }
+      },
+      "custom_css": [
+        ".group-block.border-style {border-width: 0 0 var(--border-width);}"
+      ],
+      "name": "Powered by Alguronic Acid",
+      "settings": {
+        "collection": "best-sellers",
+        "layout_type": "grid",
+        "carousel_on_mobile": true,
+        "max_products": 4,
+        "columns": 4,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 20,
+        "rows_gap": 24,
+        "icons_style": "none",
+        "icons_shape": "circle",
+        "section_width": "page-width",
+        "horizontal_alignment": "flex-start",
+        "gap": 28,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "section_baRmaJ": {
+      "type": "section",
+      "blocks": {
+        "group_Raj46N": {
+          "type": "group",
+          "settings": {
+            "link": "",
+            "open_in_new_tab": false,
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "custom",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "placeholder": "",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_Wa9DNr": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h2>Alguronic Acid</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "eyebrow",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "accordion_Mq9Nae": {
+              "type": "accordion",
+              "name": "t:names.accordion",
+              "settings": {
+                "icon": "caret",
+                "dividers": true,
+                "type_preset": "h2",
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "accordion_row_T6Eqhi": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "What is Alguronic Acid?",
+                    "name": "",
+                    "open_by_default": true,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_QcH79D": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Alguronic Acid is a group of complex polysaccharides, produced by specific strains of microalgae that function to protect and regenerate the microalgae cell. The team of biotechnology scientists behind Algenist developed a highly advanced process that allows us to grow microalgae and extract the patented Alguronic Acid compound.</p>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_QcH79D"
+                  ]
+                },
+                "accordion_row_BRJtWw": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Who discovered Alguronic Acid?",
+                    "name": "",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_88HXky": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>After years of research into microalgae as a renewable energy source, our biotechnology scientists unexpectedly discovered a powerful protective and regenerative compound with incredible anti-aging properties known as Alguronic Acid.</p>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_88HXky"
+                  ]
+                },
+                "accordion_row_YT6VNz": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "How was Alguronic Acid discovered?",
+                    "name": "",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_fKBq3j": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Alguronic Acid was unexpectedly discovered by a team of scientists at a San Francisco based biotechnology company focused on the development of renewable energy solutions from microalgae. While researching thousands of microalgae strains, the biotechnology scientists identified a protective and regenerative polysaccharide compound produced by certain strains of microalgae that, when isolated and tested, showed significant anti-aging properties.</p>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_fKBq3j"
+                  ]
+                }
+              },
+              "block_order": [
+                "accordion_row_T6Eqhi",
+                "accordion_row_BRJtWw",
+                "accordion_row_YT6VNz"
+              ]
+            }
+          },
+          "block_order": [
+            "text_Wa9DNr",
+            "accordion_Mq9Nae"
+          ]
+        },
+        "image_nYeMm9": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/2025_Algenist_KP_4036-Photo_06_Collagen_Essence_Lip_-stacked-B_R8_S4-MAIN_Full.jpg",
+            "caption": "",
+            "link": "",
+            "image_ratio": "square",
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "group_Raj46N",
+        "image_nYeMm9"
+      ],
+      "name": "Image with text (Alguronic Acid FAQ)",
+      "settings": {
+        "content_direction": "row",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 32,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-2",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 40,
+        "padding-block-end": 40
+      }
+    }
+  },
+  "order": [
+    "main",
+    "section_yYLPXK",
+    "media_with_content_q734NN",
+    "media_with_content_DWCM7k",
+    "product_list_EEcXQT",
+    "section_baRmaJ"
+  ]
+}

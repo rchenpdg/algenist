@@ -1,0 +1,56 @@
+{%- doc -%}
+  Renders the <img> element using provided image object
+
+  @param {object} image - image object
+  @param {number} [height] - custom image height
+  @param {string} [class] - additional classes
+  @param {string} [text_fallback] - text to display if image is blank
+  @param {string} [alt] - accessible name override; defaults to the image alt
+  @param {boolean} [decorative] - if true, empty alt and hide the image from assistive tech
+  @param {boolean} [unset_image_tag] - if true, ignores the image focal point
+  @param {string} [style] - additional styles
+
+  @example
+  {% render 'image', image: product.featured_image, height: 300, class: 'product-image' %}
+{%- enddoc -%}
+{% if image != blank %}
+  {% assign image_height = height | default: image.height %}
+  {% assign image_height_2x = height | default: image_height | times: 2 %}
+  {% assign image_height_3x = height | default: image_height | times: 3 %}
+
+  {% capture image_srcset -%}
+    {{ image | image_url: height: image_height }} 1x, {{ image | image_url: height: image_height_2x }} 2x, {{ image | image_url: height: image_height_3x }} 3x
+  {%- endcapture %}
+
+  {% assign style_value = style | default: '' %}
+  {% if decorative %}
+    {% assign image_alt = '' %}
+  {% else %}
+    {% assign image_alt = alt | default: image.alt | strip %}
+    {% if image_alt == blank %}
+      {% assign src_name = image.src | split: '/' | last | split: '?' | first | split: '.' | first %}
+      {% assign image_alt = src_name | replace: '_', ' ' | replace: '-', ' ' | strip %}
+    {% endif %}
+  {% endif %}
+
+  {% if unset_image_tag %}
+    {% assign style_value = style_value | append: 'object-position: inherit;' %}
+  {% endif %}
+
+  {% if decorative %}
+    <img
+      src="{{ image | image_url: height: image_height }}"
+      srcset="{{ image_srcset }}"
+      class="{{ class }}"
+      style="{{ style_value }}"
+      alt=""
+      role="none"
+      width="{{ image.width }}"
+      height="{{ image_height }}"
+    >
+  {% else %}
+    {{ image | image_url: height: image_height | image_tag: class: class, srcset: image_srcset, style: style_value, alt: image_alt }}
+  {% endif %}
+{% elsif text_fallback %}
+  {{ text_fallback }}
+{% endif %}

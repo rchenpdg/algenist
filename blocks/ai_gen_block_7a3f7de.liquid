@@ -1,0 +1,456 @@
+{% doc %}
+  @prompt
+    Create a collection banner section that is full width (fill 100% of the page) with the following customizable settings:
+    - Title and subtitle text fields
+    - Font size controls for both title and subtitle
+    - Font weight options for both title and subtitle
+    - Text alignment options (left, center, right)
+    - text position in the containter (top left, top center, top right, middle left, middle center, middle right, bottom left, bottom center. bottom right)
+    - Background image picker for desktop (image ratio based on the image)
+    - Background image picker for mobile (image ratio based on the image)
+    - Visibility control that can be connected to a collection metaobject field (true/false dynamic source) to show or hide the entire section
+    
+    The section should support dynamic sources for the visibility toggle., text alignment should follow text alignment setting regardless of the text position. being able to configure text alignment and text color different on mobile (optional). show banner should be a field which can be linked to collection template's dynamic resource, fix the text position naming:
+    "top center" change to "middle left", "top right" change to "bottom left", "middle left" change to "top center", "middle right" change to "bottom center", "bottom left" change to "top right", "bottom center" change to "middle right".
+    
+    "show banner" toggle should be replaced by dynamic resource on the collection's template
+    , change text position's dropdown text:  "middle left" to "top center", "bottom left" to "top right".
+    
+    "show banner" should be connect to metafield like title and subtitle field, font size based on rem, and "show banner" works similarly to "title" and "subtitle" section -- connecting to the dynamic resource. "true" to make it show, "false" or empty to not show it
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-collection-banner-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    display: {% if block.settings.show_banner == true or block.settings.show_banner == 'true' %}block{% else %}none{% endif %};
+  }
+
+  .ai-collection-banner__desktop-{{ ai_gen_id }} {
+    display: none;
+    width: 100%;
+    height: auto;
+  }
+
+  .ai-collection-banner__mobile-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-collection-banner__desktop-{{ ai_gen_id }} {
+      display: block;
+    }
+
+    .ai-collection-banner__mobile-{{ ai_gen_id }} {
+      display: none;
+    }
+  }
+
+  .ai-collection-banner__content-{{ ai_gen_id }} {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .ai-collection-banner__text-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 600px;
+  }
+
+  .ai-collection-banner__content-{{ ai_gen_id }}--top-left {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .ai-collection-banner__content-{{ ai_gen_id }}--top-center {
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .ai-collection-banner__content-{{ ai_gen_id }}--top-right {
+    align-items: flex-end;
+    justify-content: flex-start;
+  }
+
+  .ai-collection-banner__content-{{ ai_gen_id }}--middle-left {
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .ai-collection-banner__content-{{ ai_gen_id }}--middle-center {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-collection-banner__content-{{ ai_gen_id }}--middle-right {
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .ai-collection-banner__content-{{ ai_gen_id }}--bottom-left {
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+
+  .ai-collection-banner__content-{{ ai_gen_id }}--bottom-center {
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .ai-collection-banner__content-{{ ai_gen_id }}--bottom-right {
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
+  .ai-collection-banner__title-{{ ai_gen_id }} {
+    margin: 0;
+    color: {{ block.settings.mobile_text_color }};
+    font-size: {{ block.settings.title_font_size }}rem;
+    font-weight: {{ block.settings.title_font_weight }};
+    text-align: {{ block.settings.mobile_text_alignment }};
+  }
+
+  .ai-collection-banner__subtitle-{{ ai_gen_id }} {
+    margin: 0;
+    color: {{ block.settings.mobile_text_color }};
+    font-size: {{ block.settings.subtitle_font_size }}rem;
+    font-weight: {{ block.settings.subtitle_font_weight }};
+    text-align: {{ block.settings.mobile_text_alignment }};
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-collection-banner__title-{{ ai_gen_id }} {
+      color: {{ block.settings.text_color }};
+      text-align: {{ block.settings.text_alignment }};
+    }
+
+    .ai-collection-banner__subtitle-{{ ai_gen_id }} {
+      color: {{ block.settings.text_color }};
+      text-align: {{ block.settings.text_alignment }};
+    }
+  }
+
+  .ai-collection-banner__placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-collection-banner__placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    max-height: 500px;
+  }
+
+  .ai-collection-banner__empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+{% endstyle %}
+
+<div class="ai-collection-banner-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.desktop_image %}
+    <img
+      src="{{ block.settings.desktop_image | image_url: width: 2000 }}"
+      alt="{{ block.settings.desktop_image.alt | escape }}"
+      loading="lazy"
+      width="{{ block.settings.desktop_image.width }}"
+      height="{{ block.settings.desktop_image.height }}"
+      class="ai-collection-banner__desktop-{{ ai_gen_id }}"
+    >
+  {% else %}
+    <div class="ai-collection-banner__placeholder-{{ ai_gen_id }} ai-collection-banner__desktop-{{ ai_gen_id }}">
+      {{ 'collection-apparel-1' | placeholder_svg_tag }}
+      <div class="ai-collection-banner__empty-state-{{ ai_gen_id }}">
+        Next, add a desktop background image
+      </div>
+    </div>
+  {% endif %}
+
+  {% if block.settings.mobile_image %}
+    <img
+      src="{{ block.settings.mobile_image | image_url: width: 1000 }}"
+      alt="{{ block.settings.mobile_image.alt | escape }}"
+      loading="lazy"
+      width="{{ block.settings.mobile_image.width }}"
+      height="{{ block.settings.mobile_image.height }}"
+      class="ai-collection-banner__mobile-{{ ai_gen_id }}"
+    >
+  {% else %}
+    <div class="ai-collection-banner__placeholder-{{ ai_gen_id }} ai-collection-banner__mobile-{{ ai_gen_id }}">
+      {{ 'collection-apparel-1' | placeholder_svg_tag }}
+      <div class="ai-collection-banner__empty-state-{{ ai_gen_id }}">
+        Next, add a mobile background image
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="ai-collection-banner__content-{{ ai_gen_id }} ai-collection-banner__content-{{ ai_gen_id }}--{{ block.settings.text_position }}">
+    <div class="ai-collection-banner__text-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.title != blank %}
+        <h1 class="ai-collection-banner__title-{{ ai_gen_id }}">{{ block.settings.title }}</h1>
+      {% endif %}
+
+      {% if block.settings.subtitle != blank %}
+        <p class="ai-collection-banner__subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection banner",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "show_banner",
+      "label": "Show banner"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "header",
+      "content": "Title style"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "min": 1,
+      "max": 8,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Font size",
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "title_font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semibold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "header",
+      "content": "Subtitle style"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_font_size",
+      "min": 0.5,
+      "max": 3,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Font size",
+      "default": 1
+    },
+    {
+      "type": "select",
+      "id": "subtitle_font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semibold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "header",
+      "content": "Desktop text layout"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Text position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top left"
+        },
+        {
+          "value": "top-center",
+          "label": "Middle left"
+        },
+        {
+          "value": "top-right",
+          "label": "Bottom left"
+        },
+        {
+          "value": "middle-left",
+          "label": "Top center"
+        },
+        {
+          "value": "middle-center",
+          "label": "Middle center"
+        },
+        {
+          "value": "middle-right",
+          "label": "Bottom center"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Top right"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Middle right"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom right"
+        }
+      ],
+      "default": "middle-center"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Mobile text layout"
+    },
+    {
+      "type": "select",
+      "id": "mobile_text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "mobile_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Background images"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection banner"
+    }
+  ]
+}
+{% endschema %}

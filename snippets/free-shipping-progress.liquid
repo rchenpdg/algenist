@@ -1,0 +1,41 @@
+{% if settings.free_shipping_threshold != "" %}
+  {%- assign free_shipping_int = settings.free_shipping_threshold | times: 100 -%}
+  {%- assign progress = cart.total_price | times: 100 | divided_by: free_shipping_int -%}
+  {%- if progress > 100 -%}
+    {%- assign progress = 100 -%}
+  {%- endif -%}
+  <div class="free-shipping-progress">
+    <div class="free-shipping-progress__bar"><div class="free-shipping-progress__progress-bar" style="width: {{progress}}%"></div></div>
+    {%- if free_shipping_int > cart.total_price -%}
+      <p class="free-shipping-progress__title">You're {{free_shipping_int | minus: cart.total_price | money | remove: '.00' | remove: ' '}} away from Free Shipping!</p>
+    {%- else -%}
+      <p class="free-shipping-progress__title">You've qualified for Free Shipping!</p>
+    {%- endif -%}
+  </div>
+{% endif %}
+
+{% stylesheet %}
+  .free-shipping-progress {
+    padding-inline: var(--cart-drawer-padding);
+    padding-block: var(--padding-sm);
+  }
+
+  .free-shipping-progress__title {
+    text-align: center;
+    font-size: var(--cart-font-size--lg);
+  }
+
+  .free-shipping-progress__bar {
+    height: 0.8rem;
+    background-color: var(--color-secondary-button-border);
+    border-radius: var(--style-border-radius-buttons-primary);
+    transition: width var(--animation-speed-slow) var(--animation-easing);
+  }
+
+  .free-shipping-progress__progress-bar {
+    height: 100%;
+    background-color: var(--color-primary-button-background);
+    border-radius: var(--style-border-radius-buttons-primary);
+    transition: width var(--animation-speed-slow) var(--animation-easing);
+  }
+{% endstylesheet %}

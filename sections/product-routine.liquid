@@ -1,0 +1,286 @@
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<div  class="
+  section--full-width
+  color-{{ section.settings.color_scheme }}
+  spacing-style
+  gap-style
+  "
+  style="
+  {% render 'spacing-style', settings: section.settings %}
+  {% render 'gap-style', value: section.settings.gap %}
+  "
+>
+  <div class="section-product-routine__content">
+    {% content_for 'blocks' %}
+
+    {% if product.metafields.custom.routine.value != blank %}
+      {%- assign initial_slide = 0 -%}
+
+      <div class="product-routine__object">
+        <div class="swiper routineSwiper desktop:hidden">
+          <div class="swiper-wrapper">
+            {% for step_product in product.metafields.custom.routine.value %}
+              {%- liquid
+              if product.handle == step_product.handle
+                assign initial_slide = forloop.index0
+              endif
+              -%}
+              <div class="swiper-slide" data-product-handle="{{ product.handle }}" data-step-product-handle="{{ step_product.handle }}">
+                <div class="product-routine__step {% if product.handle == step_product.handle %}current-step{% endif %}">
+                  <div class="product-routine__step-image">
+                    {% if step_product.metafields.custom.image_cut_out != blank %}
+                      {% render 'image', image: step_product.metafields.custom.image_cut_out, height: 300, width: 300, class: 'step-image' %}
+                    {% else %}
+                      {% render 'image', image: step_product.featured_image, height: 300, class: 'step-image' %}
+                    {% endif %}
+                  </div>
+                  <span class="h5">{{ step_product.type | default: '&nbsp;' }}</span>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+
+        <ul class="list-unstyled product-routine__steps mobile:hidden">
+        {% for step_product in product.metafields.custom.routine.value %}
+          <li class="product-routine__step {% if product.title == step_product.title %}current-step{% endif %}">
+            <a href="{{ step_product.url }}" class="product-routine__step-image">
+              {% if step_product.metafields.custom.image_cut_out != blank %}
+                {% render 'image', image: step_product.metafields.custom.image_cut_out, height: 300, class: 'step-image' %}
+              {% else %}
+                {% render 'image', image: step_product.featured_image, height: 300, class: 'step-image' %}
+              {% endif %}
+            </a>
+            <span class="h5">{{ step_product.type | default: '&nbsp;' }}</span>
+          </li>
+        {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{%  stylesheet  %}
+.product-routine__steps {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2.88rem 0;
+}
+
+.product-routine__slideshow {
+  padding: 2.88rem 0;
+}
+
+.product-routine__step {
+  width: 100%;
+  max-width: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  position: relative;
+}
+
+.product-routine__step-image {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+}
+
+.product-routine__step-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  inset: 0;
+}
+
+.product-routine__slide-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.product-routine__step::after,
+.product-routine__slide-content::after {
+  content: '';
+  position: absolute;
+  bottom: -2.88rem;
+  left: 0;
+  right: 0;
+  width: calc(100% + 2rem);
+  border: 1px dashed var(--color-primary-button-background);
+}
+
+.product-routine__step:last-of-type::after {
+  width: 100%;
+}
+
+.product-routine__step.current-step::before {
+  content: '';
+  position: absolute;
+  bottom: -2.88rem;
+  width: .68rem;
+  height: .68rem;
+  background-color: var(--color-primary-button-background);
+  filter: drop-shadow(0 0 1.9px #40807A);
+  border-radius: 50%;
+  transform: translateY(.34rem);
+}
+
+.product-routine__slideshow {
+  --slide-width: 33%;
+  --slideshow-gap: var(--gap-md);
+}
+
+.swiper-pagination {
+  bottom: 0 !important;
+}
+
+.product-routine__object .swiper {
+  padding-bottom: 7.5rem;
+}
+
+.swiper-pagination-bullet {
+  background: transparent !important;
+  width: 24px !important;
+  height: 24px !important;
+  border: 1px dashed var(--color-primary-button-background) !important;
+  opacity: 1 !important;
+  line-height: 22px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: var(--color-primary-button-background) !important;
+  color: #fff !important;
+}
+
+@media screen and (max-width: 749px) {
+  .product-routine__steps {
+    overflow-x: auto;
+    overflow-y: visible;
+    justify-content: flex-start;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    scrollbar-width: none;
+    position: relative;
+
+    &::-webkit-scrollbar {
+    display: none;
+    }
+  }
+
+  .product-routine__object {
+    position: relative;
+    margin-top: 3.75rem;
+  }
+
+  .product-routine__object::before,
+  .product-routine__object::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 3rem;
+    background: linear-gradient(to right, var(--color-background) 0%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .product-routine__object::before {
+    left: 0;
+  }
+
+  .product-routine__object::after {
+    right: 0;
+    transform: rotate(180deg);
+  }
+
+  .product-routine__step {
+    max-width: unset;
+  }
+}
+{% endstylesheet %}
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+var swiper = new Swiper(".routineSwiper", {
+  slidesPerView: 2,
+  centeredSlides: true,
+  initialSlide: {{ initial_slide }},
+  pagination: {
+    clickable: true,
+    type: "bullets",
+    el: ".swiper-pagination",
+    renderBullet: function (index, className) {
+      return '<span class="' + className + '">' + (index + 1) + '</span>';
+    },
+  },
+});
+</script>
+
+{% schema %}
+{
+  "name": "Product Routine Section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+    "type": "@theme"
+    },
+    {
+    "type": "@app"
+    }
+  ],
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Routine",
+      "category": "Products"
+    }
+  ]
+}
+{% endschema %}

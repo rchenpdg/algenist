@@ -1,0 +1,188 @@
+{%- doc -%}
+  Renders the Back in Stock modal for Klaviyo email signup.
+  This modal is rendered once in the theme and controlled via JavaScript.
+{%- enddoc -%}
+
+{% if settings.klaviyo_public_api_key != blank and settings.klaviyo_back_in_stock_enabled %}
+  <back-in-stock-modal id="back-in-stock-modal" data-klaviyo-api-key="{{ settings.klaviyo_public_api_key }}">
+    <dialog
+      class="back-in-stock-modal dialog-modal color-{{ settings.popover_color_scheme }}"
+      ref="dialog"
+      scroll-lock
+    >
+      <button
+        ref="closeButton"
+        on:click="/closeDialog"
+        class="button button-unstyled close-button back-in-stock-modal__close"
+        aria-label="{{ 'accessibility.close_dialog' | t }}"
+      >
+        {{- 'icon-close.svg' | inline_asset_content -}}
+      </button>
+
+      <div class="back-in-stock-modal__content">
+        <div class="back-in-stock-modal__header">
+          <h3 class="back-in-stock-modal__title">{{ settings.klaviyo_back_in_stock_button_text | default: 'Notify Me When Available' }}</h3>
+          <p class="back-in-stock-modal__product-name" ref="productName"></p>
+          <p class="back-in-stock-modal__variant-name" ref="variantName"></p>
+        </div>
+
+        <form class="back-in-stock-modal__form" ref="form" on:submit="/handleSubmit">
+          <input type="hidden" ref="variantId" name="variant_id" value="">
+
+          <div class="back-in-stock-modal__field">
+            <label for="back-in-stock-email" class="visually-hidden">{{ 'blocks.email_signup.label' | t }}</label>
+            <input
+              type="email"
+              id="back-in-stock-email"
+              name="email"
+              ref="emailInput"
+              class="input email-signup__input"
+              placeholder="{{ 'blocks.email_signup.placeholder' | t }}"
+              required
+              value="{{  customer.email | default: blank}}"
+              autocomplete="email"
+            >
+          </div>
+
+          <button
+            type="submit"
+            class="button button-secondary back-in-stock-modal__submit"
+            ref="submitButton"
+          >
+            <span ref="submitText">{{ 'actions.submit' | t }}</span>
+            <span class="back-in-stock-modal__loading" ref="loadingIndicator" hidden>
+              {{- 'icon-loading.svg' | inline_asset_content -}}
+            </span>
+          </button>
+
+          <p class="back-in-stock-modal__message back-in-stock-modal__message--success" ref="successMessage" hidden>
+            {{ settings.klaviyo_back_in_stock_success_message | default: "You're in! We'll let you know when this is back in stock." }}
+          </p>
+
+          <p class="back-in-stock-modal__message back-in-stock-modal__message--error" ref="errorMessage" hidden>
+            {{ 'errors.general' | t | default: 'Something went wrong. Please try again.' }}
+          </p>
+        </form>
+      </div>
+    </dialog>
+  </back-in-stock-modal>
+{% endif %}
+
+{% stylesheet %}
+  .back-in-stock-modal {
+    padding: 0;
+    border: var(--style-border-popover);
+    border-radius: var(--style-border-radius-popover, 8px);
+    box-shadow: var(--shadow-popover);
+    max-width: 400px;
+    width: 90vw;
+  }
+
+  .back-in-stock-modal[open] {
+    animation: modalSlideInTop var(--animation-speed) var(--animation-easing) forwards;
+  }
+
+  .back-in-stock-modal.dialog-closing {
+    animation: modalSlideOutTop var(--animation-speed) var(--animation-easing) forwards;
+  }
+
+  .back-in-stock-modal__close {
+    position: absolute;
+    top: var(--padding-sm);
+    right: var(--padding-sm);
+    z-index: var(--layer-raised);
+  }
+
+  .back-in-stock-modal__content {
+    padding: var(--padding-2xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-lg);
+  }
+
+  .back-in-stock-modal__header {
+    text-align: center;
+    padding-right: var(--padding-xl);
+  }
+
+  .back-in-stock-modal__title {
+    margin: 0 0 var(--margin-sm) 0;
+    font-size: var(--font-size--xl);
+  }
+
+  .back-in-stock-modal__product-name {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .back-in-stock-modal__variant-name {
+    margin: var(--margin-2xs) 0 0 0;
+    font-size: var(--font-size--sm);
+    color: var(--color-foreground);
+    opacity: 0.7;
+  }
+
+  .back-in-stock-modal__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-md);
+  }
+
+  .back-in-stock-modal__field {
+    width: 100%;
+  }
+
+  .back-in-stock-modal__field .input {
+    width: 100%;
+  }
+
+  .back-in-stock-modal__submit {
+    width: 100%;
+    position: relative;
+  }
+
+  .back-in-stock-modal__submit[disabled] {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .back-in-stock-modal__loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .back-in-stock-modal__loading svg {
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+  }
+
+  .back-in-stock-modal__message {
+    text-align: center;
+    margin: 0;
+    padding: var(--padding-sm);
+    border-radius: var(--style-border-radius-popover, 4px);
+  }
+
+  .back-in-stock-modal__message--success {
+    background-color: rgba(0, 128, 0, 0.1);
+    color: green;
+  }
+
+  .back-in-stock-modal__message--error {
+    background-color: rgba(255, 0, 0, 0.1);
+    color: red;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+{% endstylesheet %}

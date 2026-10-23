@@ -1,0 +1,167 @@
+{%- doc -%}
+  Renders product recommendations.
+  {section.id} - identifies the parent section for the Section Rendering API
+
+  https://shopify.dev/docs/api/section-rendering-api
+{%- enddoc -%}
+
+<script
+  src="{{ 'product-recommendations.js' | asset_url }}"
+  type="module"
+></script>
+
+{% comment %}
+  [data-section-id] {section.id} - used to fetch the product recommendations from the Section Rendering API
+{% endcomment %}
+
+<product-recommendations
+  id="product-recommendations-{{ section.id }}"
+  class="cart-layer-with product-recommendations"
+  data-url="{{ routes.product_recommendations_url }}?limit=3"
+  data-section-id="{{ section.id }}"
+  data-product-id="{{ cart.items.first.product_id }}"
+  data-intent="complementary"
+  data-recommendations-performed="{{ recommendations.performed }}"
+  {% if request.visual_preview_mode %}
+    data-shopify-editor-preview
+  {% endif %}
+  data-testid="product-recommendations-block"
+>
+  {%- if recommendations.performed or closest.product == blank -%}
+    {% liquid
+      assign products = recommendations.products
+
+      if recommendations.performed and recommendations.products_count == 0
+        # Do not recommend the All collection as complementary products
+        assign products = null
+      else
+        assign products = recommendations.products
+      endif
+    %}
+    {% capture list_items %}
+      {% if products.size > 0 %}
+        {% for product in products limit: 3 %}
+          <div
+            class="cart-items__table-row"
+          >
+            <div
+              class="cart-items__media"
+            >
+              {% if product.featured_image -%}
+                {% liquid
+                  assign ratio = 1
+                  assign border_opacity = settings.cart_thumbnail_border_opacity | divided_by: 100.0
+                  assign border_override = '--border-width: [cart_thumbnail_border_width]px; --border-style: [cart_thumbnail_border_style]; --border-color: rgb(var(--color-border-rgb) / [cart_thumbnail_border_opacity]); --border-radius: [cart_thumbnail_border_radius]px;' | replace: '[cart_thumbnail_border_width]', settings.cart_thumbnail_border_width | replace: '[cart_thumbnail_border_style]', settings.cart_thumbnail_border | replace: '[cart_thumbnail_border_opacity]', border_opacity | replace: '[cart_thumbnail_border_radius]', settings.cart_thumbnail_border_radius
+
+                  if settings.cart_thumbnail_border_radius > 0
+                    assign border_override = border_override | append: ' overflow: hidden;'
+                  endif
+                %}
+                <a
+                  href="{{ product.url }}"
+                  class="cart-items__media-container"
+                  style="--ratio:{{ ratio }};"
+                >
+                  {%- liquid
+                    echo product.featured_image | image_url: width: 250 | image_tag: class: 'cart-items__media-image border-style', style: border_override
+                  -%}
+                </a>
+              {%- endif %}
+            </div>
+            <p class="cart-items__details cart-primary-typography">
+              <a
+                href="{{ product.url }}"
+                class="cart-items__title"
+                aria-label="{{ 'accessibility.nested_product' | t: product_title: product.title }}"
+              >
+                {{- product.title -}}
+              </a>
+            </p>
+            <div
+              class="cart-items__error hidden"
+              ref="cartItemErrorContainer-{{ product.index | plus: 1 }}"
+            >
+              <div
+                class="cart-item__error"
+                role="alert"
+              >
+                <span class="svg-wrapper">
+                  {{- 'icon-error.svg' | inline_asset_content -}}
+                </span>
+                <small
+                  class="cart-item__error-text cart-primary-typography"
+                  ref="cartItemError-{{ product.index | plus: 1 }}"
+                ></small>
+              </div>
+            </div>
+            <div
+              class="cart-items__price cart-secondary-typography"
+            >
+              {% render 'quick-add', product: product, section_id: section.id %}
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endcapture %}
+
+    {% liquid
+      if products != blank and products.size > 0
+        assign has_recommendations = 'true'
+      else
+        assign has_recommendations = 'false'
+      endif
+    %}
+    
+    <p class="cart-layer-with__heading">Layer With</p>
+    <div
+      class="
+        resource-list
+        resource-list--grid
+      "
+      data-testid="resource-list-grid"
+      data-has-recommendations="{{ has_recommendations }}"
+    >
+      {{ list_items }}
+    </div>
+  {%- endif -%}
+</product-recommendations>
+
+{% stylesheet %}
+  .cart-layer-with {
+    padding: 2rem 1.25rem;
+    background-color: var(--color-secondary-button-border);
+    border-radius: var(--style-border-radius-buttons-primary);
+  }
+
+  .cart-layer-with__heading {
+    font-size: var(--cart-font-size--lg);
+  }
+
+  .cart-layer-with .cart-items__table-row {
+    grid-template-areas: "media price price"
+                        "media price price"
+                        "details error error";
+
+    @media screen and (max-width: 749px) {
+      grid-template-columns: 10rem minmax(0,1fr) minmax(var(--cart-item-price-width),auto);
+    }
+
+    @media screen and (min-width: 750px) {
+      grid-template-areas: "media details price"
+                          "media quantity price"
+                          "media error error";
+
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .cart-layer-with .cart-items__details {
+      margin: var(--margin-sm) 0 0;
+      text-align: center;
+    }
+  }
+
+  .cart-layer-with :is(.cart-items__table-row):has(.quick-add__product-form-component--multi-variant):not(:has(swatches-variant-picker-component)) :is(add-to-cart-component,.quick-add__button--add) {
+    display: none;
+  }
+{% endstylesheet %}

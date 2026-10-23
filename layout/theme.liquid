@@ -1,0 +1,83 @@
+<!doctype html>
+<html
+  class="no-js{% if request.design_mode %} shopify-design-mode{% endif %}"
+  lang="{{ request.locale.iso_code }}"
+>
+  <head>
+    {%- if settings.favicon != blank -%}
+      <link
+        rel="icon"
+        type="image/png"
+        href="{{ settings.favicon | image_url: width: 32, height: 32 }}"
+      >
+    {%- endif -%}
+
+    {% comment %} This a way to wait for main content to load when navigating to a new page so that the view transitions can work consistently {% endcomment %}
+    <link
+      rel="expect"
+      href="#MainContent"
+      blocking="render"
+      id="view-transition-render-blocker"
+    >
+
+    {%- render 'meta-tags' -%}
+    {%- render 'stylesheets' -%}
+    {%- render 'fonts' -%}
+    {%- render 'scripts' -%}
+    {%- render 'theme-styles-variables' -%}
+    {%- render 'color-schemes' -%}
+
+    {% if request.design_mode %}
+      {%- render 'theme-editor' -%}
+    {% endif %}
+
+    {{ content_for_header }}
+  </head>
+
+  <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
+    {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}
+    <div id="header-group">
+      {% sections 'header-group' %}
+    </div>
+
+    <script
+      src="{{ 'critical.js' | asset_url }}"
+      type="module"
+      async
+      blocking="render"
+    ></script>
+    <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
+
+    <main
+      id="MainContent"
+      class="content-for-layout"
+      role="main"
+      tabindex="-1"
+      data-page-transition-enabled="{{ settings.page_transition_enabled }}"
+      data-product-transition="{{ settings.transition_to_main_product }}"
+      data-template="{{ template }}"
+    >
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    {% render 'search-modal' %}
+
+    {% if settings.quick_add or settings.mobile_quick_add %}
+      {% render 'quick-add-modal' %}
+    {% endif %}
+
+    {% if settings.klaviyo_back_in_stock_enabled and settings.klaviyo_public_api_key != blank %}
+      {% render 'back-in-stock-modal' %}
+    {% endif %}
+
+    <script src="https://cdn-widgetsrepository.yotpo.com/v1/loader/mPa0Zjp4rv5s7TGxvkSkxZzN1N2iO9Ag2Q68DhRl?languageCode={{ localization.language.iso_code | escape }}"  async></script>
+    <!--accessibe widget starts--->
+    <script> (function(){ var s = document.createElement('script'); var h = document.querySelector('head') || document.body; s.src = 'https://acsbapp.com/apps/app/dist/js/app.js'; s.async = true; s.onload = function(){ acsbJS.init(); }; h.appendChild(s); })(); </script>
+    <!--accessibe widget ends--->
+    <!-- Widget : Gift with Purchase -->
+    <div data-rebuy-id="258049"></div>
+    <!-- End Widget : Gift with Purchase -->
+  </body>
+</html>

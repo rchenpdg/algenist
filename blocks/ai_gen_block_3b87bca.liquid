@@ -1,0 +1,136 @@
+{% doc %}
+  @prompt
+    Create a responsive two-column image block with text overlays. Each column must preserve the natural aspect ratio of its uploaded image, without forcing a fixed crop or shared ratio. Provide separate desktop and mobile images for each column. Each column should have editable eyebrow, title, subtext, and CTA content. The text container position and text alignment must be configurable independently for each column, with separate desktop and mobile controls so they can differ across breakpoints. All text elements must have configurable font sizes and colors, including eyebrow, title, and subtext. Each CTA must support configurable background color, border color, text color, hover background color, hover text color, and border radius. Add a CTA display option for either a standard button style or a text link style, with separate choices for underline or no underline. Include CTA link settings and ensure the two-column layout stacks responsively on mobile while preserving each image's uploaded aspect ratio and readable text contrast.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-split-image-{{ ai_gen_id }} { display:block; width:{{ block.settings.desktop_width_percent }}%; max-width:100%; margin:0 auto; }
+  .ai-split-image__grid-{{ ai_gen_id }} { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .ai-split-image__item-{{ ai_gen_id }} { position:relative; overflow:hidden; line-height:0; }
+  .ai-split-image__media-{{ ai_gen_id }} { display:block; width:100%; height:auto; }
+  .ai-split-image__mobile-{{ ai_gen_id }} { display:none; }
+  .ai-split-image__placeholder-{{ ai_gen_id }} { position:relative; aspect-ratio:4 / 3; background:#e9e7e5; display:flex; align-items:center; justify-content:center; }
+  .ai-split-image__placeholder-{{ ai_gen_id }} svg { width:100%; height:100%; color:#777; }
+  .ai-split-image__empty-{{ ai_gen_id }} { position:absolute; bottom:16px; left:16px; right:16px; text-align:center; color:#333; font:14px/1.4 sans-serif; }
+  .ai-split-image__content-{{ ai_gen_id }} { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:var(--desktop-y); align-items:var(--desktop-x); text-align:var(--desktop-align); padding:clamp(20px,5vw,64px); color:var(--text-color); line-height:1.3; }
+  .ai-split-image__inner-{{ ai_gen_id }} { width:100%; max-width:520px; }
+  .ai-split-image__eyebrow-{{ ai_gen_id }} { margin:0 0 10px; font-size:var(--eyebrow-size); color:var(--eyebrow-color); line-height:1.2; }
+  .ai-split-image__title-{{ ai_gen_id }} { margin:0 0 12px; font-size:var(--title-size); color:var(--title-color); line-height:1.05; }
+  .ai-split-image__subtext-{{ ai_gen_id }} { margin:0 0 20px; font-size:var(--subtext-size); color:var(--subtext-color); line-height:1.45; }
+  .ai-split-image__cta-{{ ai_gen_id }} { display:inline-block; width:max-content; max-width:100%; padding:12px 20px; border:1px solid var(--cta-border); border-radius:var(--cta-radius); background:var(--cta-bg); color:var(--cta-text); font-size:14px; line-height:1.2; text-decoration:none; }
+  .ai-split-image__cta-{{ ai_gen_id }}:hover { background:var(--cta-hover-bg); color:var(--cta-hover-text); }
+  .ai-split-image__cta--link-{{ ai_gen_id }} { padding:0; border:0; background:transparent; color:var(--cta-text); border-radius:0; text-decoration:var(--link-decoration); }
+  .ai-split-image__cta--link-{{ ai_gen_id }}:hover { background:transparent; color:var(--cta-hover-text); }
+  @media screen and (max-width:749px) {
+    .ai-split-image__grid-{{ ai_gen_id }} { grid-template-columns:1fr; }
+    .ai-split-image__desktop-{{ ai_gen_id }} { display:none; }
+    .ai-split-image__mobile-{{ ai_gen_id }} { display:block; }
+    .ai-split-image__content-{{ ai_gen_id }} { justify-content:var(--mobile-y); align-items:var(--mobile-x); text-align:var(--mobile-align); }
+  }
+{% endstyle %}
+
+<div class="ai-split-image-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-split-image__grid-{{ ai_gen_id }}">
+    {% for i in (1..2) %}
+      {% liquid
+        assign image_desktop_key = 'image_' | append: i | append: '_desktop'
+        assign image_mobile_key = 'image_' | append: i | append: '_mobile'
+        assign eyebrow_key = 'eyebrow_' | append: i
+        assign title_key = 'title_' | append: i
+        assign subtext_key = 'subtext_' | append: i
+        assign cta_key = 'cta_' | append: i
+        assign link_key = 'link_' | append: i
+        assign desktop_x_key = 'desktop_x_' | append: i
+        assign desktop_y_key = 'desktop_y_' | append: i
+        assign desktop_align_key = 'desktop_align_' | append: i
+        assign mobile_x_key = 'mobile_x_' | append: i
+        assign mobile_y_key = 'mobile_y_' | append: i
+        assign mobile_align_key = 'mobile_align_' | append: i
+        assign content = block.settings[image_desktop_key]
+        assign mobile_image = block.settings[image_mobile_key]
+      %}
+      <div class="ai-split-image__item-{{ ai_gen_id }}">
+        {% if content != blank %}
+          <img class="ai-split-image__media-{{ ai_gen_id }} ai-split-image__desktop-{{ ai_gen_id }}" src="{{ content | image_url: width: 1800 }}" alt="{{ content.alt | escape }}" loading="lazy" width="{{ content.width }}" height="{{ content.height }}">
+        {% else %}
+          <div class="ai-split-image__placeholder-{{ ai_gen_id }} ai-split-image__desktop-{{ ai_gen_id }}">{{ 'image' | placeholder_svg_tag }}<span class="ai-split-image__empty-{{ ai_gen_id }}">Add desktop image {{ i }}</span></div>
+        {% endif %}
+        {% if mobile_image != blank %}
+          <img class="ai-split-image__media-{{ ai_gen_id }} ai-split-image__mobile-{{ ai_gen_id }}" src="{{ mobile_image | image_url: width: 1200 }}" alt="{{ mobile_image.alt | escape }}" loading="lazy" width="{{ mobile_image.width }}" height="{{ mobile_image.height }}">
+        {% elsif content != blank %}
+          <img class="ai-split-image__media-{{ ai_gen_id }} ai-split-image__mobile-{{ ai_gen_id }}" src="{{ content | image_url: width: 1200 }}" alt="{{ content.alt | escape }}" loading="lazy" width="{{ content.width }}" height="{{ content.height }}">
+        {% else %}
+          <div class="ai-split-image__placeholder-{{ ai_gen_id }} ai-split-image__mobile-{{ ai_gen_id }}">{{ 'image' | placeholder_svg_tag }}<span class="ai-split-image__empty-{{ ai_gen_id }}">Add mobile image {{ i }}</span></div>
+        {% endif %}
+        <div class="ai-split-image__content-{{ ai_gen_id }}" style="--desktop-x:{{ block.settings[desktop_x_key] }};--desktop-y:{{ block.settings[desktop_y_key] }};--desktop-align:{{ block.settings[desktop_align_key] }};--mobile-x:{{ block.settings[mobile_x_key] }};--mobile-y:{{ block.settings[mobile_y_key] }};--mobile-align:{{ block.settings[mobile_align_key] }};--eyebrow-size:{{ block.settings.eyebrow_size }}px;--title-size:{{ block.settings.title_size }}px;--subtext-size:{{ block.settings.subtext_size }}px;--text-color:{{ block.settings.text_color }};--eyebrow-color:{{ block.settings.eyebrow_color }};--title-color:{{ block.settings.title_color }};--subtext-color:{{ block.settings.subtext_color }};--cta-bg:{{ block.settings.cta_background }};--cta-border:{{ block.settings.cta_border }};--cta-text:{{ block.settings.cta_text }};--cta-hover-bg:{{ block.settings.cta_hover_background }};--cta-hover-text:{{ block.settings.cta_hover_text }};--cta-radius:{{ block.settings.cta_radius }}px;--link-decoration:{{ block.settings.link_underline }};">
+          <div class="ai-split-image__inner-{{ ai_gen_id }}">
+            {% if block.settings[eyebrow_key] != blank %}<p class="ai-split-image__eyebrow-{{ ai_gen_id }}">{{ block.settings[eyebrow_key] | escape }}</p>{% endif %}
+            {% if block.settings[title_key] != blank %}<h2 class="ai-split-image__title-{{ ai_gen_id }}">{{ block.settings[title_key] | escape }}</h2>{% endif %}
+            {% if block.settings[subtext_key] != blank %}<p class="ai-split-image__subtext-{{ ai_gen_id }}">{{ block.settings[subtext_key] | escape }}</p>{% endif %}
+            {% if block.settings[cta_key] != blank %}<a class="ai-split-image__cta-{{ ai_gen_id }}{% if block.settings.cta_style == 'link' %} ai-split-image__cta--link-{{ ai_gen_id }}{% endif %}" href="{{ block.settings[link_key] }}">{{ block.settings[cta_key] | escape }}</a>{% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Two-column image text",
+  "tag": null,
+  "class": "two-column-image-text",
+  "settings": [
+    {"type":"header","content":"Images and layout"},
+    {"type":"range","id":"desktop_width_percent","label":"Desktop width","min":50,"max":100,"step":5,"unit":"%","default":100},
+    {"type":"image_picker","id":"image_1_desktop","label":"Column 1 desktop image"},
+    {"type":"image_picker","id":"image_1_mobile","label":"Column 1 mobile image"},
+    {"type":"image_picker","id":"image_2_desktop","label":"Column 2 desktop image"},
+    {"type":"image_picker","id":"image_2_mobile","label":"Column 2 mobile image"},
+    {"type":"header","content":"Column 1 content"},
+    {"type":"text","id":"eyebrow_1","label":"Eyebrow 1","default":"Discover more"},
+    {"type":"text","id":"title_1","label":"Title 1","default":"Your headline"},
+    {"type":"textarea","id":"subtext_1","label":"Subtext 1","default":"Add supporting copy for this image."},
+    {"type":"text","id":"cta_1","label":"CTA 1","default":"Shop now"},
+    {"type":"url","id":"link_1","label":"CTA 1 link"},
+    {"type":"header","content":"Column 2 content"},
+    {"type":"text","id":"eyebrow_2","label":"Eyebrow 2","default":"Featured"},
+    {"type":"text","id":"title_2","label":"Title 2","default":"Another headline"},
+    {"type":"textarea","id":"subtext_2","label":"Subtext 2","default":"Add supporting copy for this image."},
+    {"type":"text","id":"cta_2","label":"CTA 2","default":"Explore now"},
+    {"type":"url","id":"link_2","label":"CTA 2 link"},
+    {"type":"header","content":"Text position"},
+    {"type":"select","id":"desktop_x_1","label":"Column 1 desktop horizontal","options":[{"value":"flex-start","label":"Left"},{"value":"center","label":"Center"},{"value":"flex-end","label":"Right"}],"default":"center"},
+    {"type":"select","id":"desktop_y_1","label":"Column 1 desktop vertical","options":[{"value":"flex-start","label":"Top"},{"value":"center","label":"Center"},{"value":"flex-end","label":"Bottom"}],"default":"center"},
+    {"type":"select","id":"desktop_align_1","label":"Column 1 desktop alignment","options":[{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"}],"default":"center"},
+    {"type":"select","id":"mobile_x_1","label":"Column 1 mobile horizontal","options":[{"value":"flex-start","label":"Left"},{"value":"center","label":"Center"},{"value":"flex-end","label":"Right"}],"default":"center"},
+    {"type":"select","id":"mobile_y_1","label":"Column 1 mobile vertical","options":[{"value":"flex-start","label":"Top"},{"value":"center","label":"Center"},{"value":"flex-end","label":"Bottom"}],"default":"center"},
+    {"type":"select","id":"mobile_align_1","label":"Column 1 mobile alignment","options":[{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"}],"default":"center"},
+    {"type":"select","id":"desktop_x_2","label":"Column 2 desktop horizontal","options":[{"value":"flex-start","label":"Left"},{"value":"center","label":"Center"},{"value":"flex-end","label":"Right"}],"default":"center"},
+    {"type":"select","id":"desktop_y_2","label":"Column 2 desktop vertical","options":[{"value":"flex-start","label":"Top"},{"value":"center","label":"Center"},{"value":"flex-end","label":"Bottom"}],"default":"center"},
+    {"type":"select","id":"desktop_align_2","label":"Column 2 desktop alignment","options":[{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"}],"default":"center"},
+    {"type":"select","id":"mobile_x_2","label":"Column 2 mobile horizontal","options":[{"value":"flex-start","label":"Left"},{"value":"center","label":"Center"},{"value":"flex-end","label":"Right"}],"default":"center"},
+    {"type":"select","id":"mobile_y_2","label":"Column 2 mobile vertical","options":[{"value":"flex-start","label":"Top"},{"value":"center","label":"Center"},{"value":"flex-end","label":"Bottom"}],"default":"center"},
+    {"type":"select","id":"mobile_align_2","label":"Column 2 mobile alignment","options":[{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"}],"default":"center"},
+    {"type":"header","content":"Typography and color"},
+    {"type":"range","id":"eyebrow_size","label":"Eyebrow size","min":10,"max":32,"step":1,"unit":"px","default":12},
+    {"type":"range","id":"title_size","label":"Title size","min":18,"max":72,"step":2,"unit":"px","default":40},
+    {"type":"range","id":"subtext_size","label":"Subtext size","min":12,"max":28,"step":1,"unit":"px","default":16},
+    {"type":"color","id":"text_color","label":"Text fallback","default":"#FFFFFF"},
+    {"type":"color","id":"eyebrow_color","label":"Eyebrow","default":"#FFFFFF"},
+    {"type":"color","id":"title_color","label":"Title","default":"#FFFFFF"},
+    {"type":"color","id":"subtext_color","label":"Subtext","default":"#FFFFFF"},
+    {"type":"header","content":"CTA style"},
+    {"type":"select","id":"cta_style","label":"Display style","options":[{"value":"button","label":"Button"},{"value":"link","label":"Text link"}],"default":"button"},
+    {"type":"select","id":"link_underline","label":"Text link underline","options":[{"value":"underline","label":"Underline"},{"value":"none","label":"No underline"}],"default":"underline"},
+    {"type":"color","id":"cta_background","label":"Background","default":"#40807A"},
+    {"type":"color","id":"cta_border","label":"Border","default":"#40807A"},
+    {"type":"color","id":"cta_text","label":"Text","default":"#FFFFFF"},
+    {"type":"color","id":"cta_hover_background","label":"Hover background","default":"#2D5A55"},
+    {"type":"color","id":"cta_hover_text","label":"Hover text","default":"#FFFFFF"},
+    {"type":"range","id":"cta_radius","label":"Border radius","min":0,"max":32,"step":1,"unit":"px","default":4}
+  ],
+  "presets": [{"name":"Two-column image text"}]
+}
+{% endschema %}

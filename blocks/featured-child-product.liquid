@@ -1,0 +1,132 @@
+{% assign block_settings = block.settings %}
+
+<div class="featured-child-product">
+    <div class="featured-child-product__image-wrapper">
+        {% render 'image', image: block_settings.image, width: 300, class: 'child-product-image' %}
+    </div>
+    <div class="featured-child-product__border"> </div>
+    <div class="featured-child-product__content">
+        <h2 class="featured-child-product__heading eyebrow">{{ block_settings.heading }}</h2>
+        {% if block_settings.subheading != blank %}
+            <div class="featured-child-product__subheading rte">
+                {{ block_settings.subheading }}
+            </div>
+        {% endif %}
+
+    </div>
+</div>
+
+{% stylesheet %}
+.featured-child-product {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.featured-child-product__image-wrapper {
+    width: 100%;
+    aspect-ratio: 1 / 2;
+    max-width: 2.5rem;
+}
+
+.featured-child-product__image-wrapper .child-product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom;
+}
+
+.featured-child-product__border {
+    position: relative;
+    width: 100%;
+    padding: 1.25rem 0 0;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px dashed var(--color-secondary-button-border);
+}
+
+.featured-child-product__border::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(.18rem);
+    height: .33rem;
+    width: .33rem;
+    border-radius: 50%;
+    background-color: var(--color-secondary-button-border);
+    outline: 2px solid var(--color-background);
+}
+
+.featured-child-product__content {
+    padding-right: 1.25rem;
+}
+
+@media screen and (max-width: 749px) {
+    .featured-child-product {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+    }
+
+    .featured-child-product__border {
+        display: none;
+    }
+
+    .featured-child-product__image-wrapper .child-product-image {
+        object-position: top;
+    }
+
+    .featured-child-product__content {
+        padding-right: 0;
+        padding-left: 1.2rem;
+        margin-left: 1.2rem;
+        border-left: 1px dashed var(--color-secondary-button-border);
+        height: 100%;
+        padding-bottom: 2.5rem;
+        position: relative;
+    }
+
+    .featured-child-product__content::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translateX(-.2rem);
+        height: .33rem;
+        width: .33rem;
+        border-radius: 50%;
+        background-color: var(--color-secondary-button-border);
+        outline: 3px solid var(--color-background);
+    }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Featured child product",
+  "settings": [
+    {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image",
+        "info": "Recommended: 300 x 600px"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:settings.heading",
+      "default": "t:text_defaults.accordion_heading"
+    },
+    {
+        "type": "inline_richtext",
+        "id": "subheading",
+        "label": "Subheading"
+    }
+  ],
+    "presets": [
+    {
+      "name": "Featured child product",
+      "category": "Content"
+    }
+  ]
+}
+{% endschema %}

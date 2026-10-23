@@ -1,0 +1,23 @@
+{% # theme-check-disable %}
+{% assign oracle_font_files = 'ABCOracle-RegularItalic.woff2, ABCOracle-Regular.woff2, ABCOracle-HeavyItalic.woff2, ABCOracle-Heavy.woff2, ABCOracle-BookItalic.woff2, ABCOracle-Book.woff2' | split: ', ' %}
+{%  for font_file in oracle_font_files %}
+  <link
+    rel="preload"
+    as="font"
+    href="{{ font_file | asset_url }}"
+    type="font/woff2"
+    crossorigin
+  >
+{%  endfor %}
+
+{% assign yellix_font_files = 'Yellix-Medium.woff2, Yellix-MediumItalic.woff2' | split: ', ' %}
+{%  for font_file in yellix_font_files %}
+  <link
+    rel="preload"
+    as="font"
+    href="{{ font_file | asset_url }}"
+    type="font/woff2"
+    crossorigin
+  >
+{%  endfor %}
+{% # theme-check-enable %}

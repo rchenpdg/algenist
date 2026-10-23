@@ -1,0 +1,80 @@
+{%- doc -%}
+  Intended for use in a block similar to the button block.
+
+  @param {string} link - link to render
+  @param {object} [block] - The block
+
+  @example
+  {% render 'button', link: '/collections/all' %}
+{%- enddoc -%}
+
+{% liquid
+  assign block_settings = block.settings
+  assign button_label = block_settings.label | strip
+  assign button_label_key = button_label | downcase
+  assign button_accessible_name = button_label
+  assign link_slug = link | split: '?' | first | split: '/' | last | replace: '-', ' ' | strip
+
+  if link_slug != blank
+    if button_label_key == 'shop now' or button_label_key == 'shop' or button_label_key == 'shop best sellers' or button_label_key == 'learn more' or button_label_key == 'read more' or button_label_key == 'discover' or button_label_key == 'shop all' or button_label_key == 'view all' or button_label_key == 'get started'
+      assign button_accessible_name = button_label | append: ', ' | append: link_slug
+    endif
+  endif
+%}
+
+{% capture attributes %}
+  style="
+    {% render 'size-style', settings: block_settings %}
+    {% render 'spacing-padding', settings: block_settings %}
+  "
+
+  {{ block.shopify_attributes }}
+{% endcapture %}
+
+<div
+  class="size-style spacing-style"
+  {{ attributes }}
+>
+  <a
+    {% if link == blank %}
+      role="link"
+      aria-disabled="true"
+    {% else %}
+      href="{{ link }}"
+    {% endif %}
+    class="
+      {{ block_settings.style_class }}
+      {{ block_settings.style_class }}--{{ block.id }}
+      {% if block_settings.enable_more_padding %}button--brand-width{% endif %}
+    "
+    {%- if block_settings.open_in_new_tab -%}
+      target="_blank"
+      rel="noopener noreferrer"
+    {%- endif -%}
+    {% if button_accessible_name != button_label %}
+      aria-label="{{ button_accessible_name | escape }}"
+    {% endif %}
+  >
+    {{ block_settings.label }}
+  </a>
+</div>
+
+{% stylesheet %}
+  .link {
+    text-decoration-color: currentcolor;
+    font-family: var(--font-eyebrow--family);
+    font-style: var(--font-eyebrow--style);
+    font-weight: var(--font-eyebrow--weight);
+    font-size: var(--font-eyebrow--size);
+    letter-spacing: var(--font-eyebrow--letter-spacing);
+    text-transform: var(--font-eyebrow--case);
+
+    &:hover {
+      color: var(--color-primary-hover);
+    }
+  }
+
+  .button--brand-width {
+    min-width: 12rem;
+  }
+{% endstylesheet %}
