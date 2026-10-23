@@ -1269,6 +1269,20 @@
     "result_slider_rs01": {
       "type": "result-slider",
       "blocks": {
+        "slide_rs04": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "",
+            "heading": "",
+            "product": "genius-forever-firm-concentrated-face-serum",
+            "product_title": "<b>GENIUS Forever Firm<sup>™</sup></b><br>Concentrated Face Serum",
+            "button_label": "Shop now",
+            "before_image": "shopify://shop_images/FF-Before.jpg",
+            "after_image": "shopify://shop_images/FF-After.jpg",
+            "quote": "It feels lightweight, absorbs quickly, and leaves my skin feeling smooth, hydrated, and refreshed.",
+            "author": "Stephanie"
+          }
+        },
         "slide_rs01": {
           "type": "slide",
           "settings": {
@@ -1310,27 +1324,13 @@
             "quote": "It absorbs nicely into my skin and my skin feels smoother and my fine lines look plumper and more hydrated.",
             "author": "Michelle"
           }
-        },
-        "slide_rs04": {
-          "type": "slide",
-          "settings": {
-            "eyebrow": "",
-            "heading": "",
-            "product": "genius-forever-firm-concentrated-face-serum",
-            "product_title": "<b>GENIUS Forever Firm<sup>™</sup></b><br>Concentrated Face Serum",
-            "button_label": "Shop now",
-            "before_image": "shopify://shop_images/FF-Before.jpg",
-            "after_image": "shopify://shop_images/FF-After.jpg",
-            "quote": "It feels lightweight, absorbs quickly, and leaves my skin feeling smooth, hydrated, and refreshed.",
-            "author": "Stephanie"
-          }
         }
       },
       "block_order": [
+        "slide_rs04",
         "slide_rs01",
         "slide_rs02",
-        "slide_rs03",
-        "slide_rs04"
+        "slide_rs03"
       ],
       "custom_css": [],
       "name": "Real Results Slider",
