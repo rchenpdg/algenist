@@ -31,6 +31,7 @@
     --rs-block-pad-y: {{ section.settings.block_padding_y }}px;
     --rs-block-pad-x: {{ section.settings.block_padding_x }}px;
     --rs-img-w: {{ section.settings.image_width }}%;
+    --rs-text-w: {{ section.settings.text_width }}px;
     --rs-text-v: {{ section.settings.text_vertical | default: 'center' }};
     --rs-img-v: {{ section.settings.image_vertical | default: 'center' }};
     --rs-text: {{ section.settings.text_color }};
@@ -213,7 +214,7 @@
   .rs__media { align-self: var(--rs-img-v, center); }
 
   /* Text column + horizontal text alignment */
-  .rs__content { max-width: 560px; width: 100%; }
+  .rs__content { max-width: var(--rs-text-w, 560px); width: 100%; } /* desktop text box width (setting) */
   .rs--text-left .rs__content { justify-self: start; text-align: left; }
   .rs--text-center .rs__content { justify-self: center; text-align: center; }
   .rs--text-right .rs__content { justify-self: end; text-align: right; }
@@ -623,6 +624,7 @@
       ],
       "default": "right"
     },
+    { "type": "range", "id": "text_width", "label": "Text box width (desktop)", "min": 280, "max": 800, "step": 10, "unit": "px", "default": 560, "info": "Controls where the heading and quote wrap on desktop. Mobile always uses the full width. For an exact break, add <br> in the text." },
     { "type": "range", "id": "image_width", "label": "Image width", "min": 30, "max": 60, "step": 1, "unit": "%", "default": 46 },
     {
       "type": "select",
