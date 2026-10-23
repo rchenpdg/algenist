@@ -29,6 +29,7 @@
     --rs-bg: {{ section.settings.background_color }};
     --rs-text: {{ section.settings.text_color }};
     --rs-card-border: {{ section.settings.card_border_color }};
+    --rs-thumb: {{ section.settings.thumb_size }}px;
     --rs-card-border-hover: {{ section.settings.card_border_hover_color }};
     --rs-ratio: {{ section.settings.image_ratio }};
     --rs-pad-top: {{ section.settings.padding_top }}px;
@@ -253,7 +254,7 @@
   .rs-product__img {
     flex: none;
     position: relative;
-    width: 72px; /* fallback; script keeps width = height so it stays square */
+    width: var(--rs-thumb, 96px); /* fallback; script keeps width = height so it stays square */
     margin: 3px 0 0;
     overflow: hidden;
     background: #f3f3f3;
@@ -268,15 +269,23 @@
     object-fit: contain;
     object-position: center;
   }
-  .rs-product__info { display: flex; flex-direction: column; gap: 2px; }
+  /* Text column is at least as tall as the image setting; name at top, "Shop now" at bottom */
+  .rs-product__info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-height: calc(var(--rs-thumb, 96px) + 3px);
+  }
   .rs-product__title { font-size: 14px; line-height: 1.35; }
   /* ® / ™ in the name shouldn't push the first line down */
   .rs-product__title sup { font-size: .6em; line-height: 0; vertical-align: super; }
   .rs-product__price { font-size: 14px; }
   .rs-product__cta {
-    margin-top: 6px;
-    font-size: 13px;
-    letter-spacing: .03em;
+    margin-top: auto;
+    padding-top: 6px;
+    font-size: 11px;
+    line-height: 1.2;
+    letter-spacing: .06em;
     text-transform: uppercase;
     text-decoration: underline;
     text-underline-offset: 3px;
@@ -559,6 +568,7 @@
 
     { "type": "header", "content": "Product card" },
     { "type": "checkbox", "id": "show_price", "label": "Show price", "default": true },
+    { "type": "range", "id": "thumb_size", "label": "Product image size", "min": 60, "max": 160, "step": 4, "unit": "px", "default": 96, "info": "Image spans from the product name to \"Shop now\"." },
     { "type": "color", "id": "card_border_color", "label": "Border color", "default": "#d9d9d9" },
     { "type": "color", "id": "card_border_hover_color", "label": "Border color on hover", "default": "#999999" },
 
