@@ -30,6 +30,7 @@
     --rs-text: {{ section.settings.text_color }};
     --rs-card-border: {{ section.settings.card_border_color }};
     --rs-thumb: {{ section.settings.thumb_size }}px;
+    --rs-card-width: {{ section.settings.card_width }}px;
     --rs-card-border-hover: {{ section.settings.card_border_hover_color }};
     --rs-ratio: {{ section.settings.image_ratio }};
     --rs-pad-top: {{ section.settings.padding_top }}px;
@@ -239,8 +240,9 @@
     display: inline-flex;
     align-items: stretch; /* thumbnail spans the full text block */
     gap: 12px;
-    min-width: 260px;
-    max-width: 320px;
+    box-sizing: border-box;
+    width: var(--rs-card-width, 380px);
+    max-width: 100%;
     padding: 12px 18px 12px 10px;
     border: 1px solid var(--rs-card-border, #d9d9d9);
     color: inherit;
@@ -292,7 +294,9 @@
   }
 
   /* Dots */
-  .rs__dots { display: flex; gap: 2px; margin-top: 20px; padding-left: 90px; }
+  /* Dots line up with the product card's left edge
+     (each 20px button centers a 9px dot, so pull left by the 5.5px inset) */
+  .rs__dots { display: flex; gap: 2px; margin-top: 20px; margin-left: -5.5px; }
   .rs__dot {
     width: 20px; height: 20px;
     padding: 0; border: 0; background: none; cursor: pointer;
@@ -385,7 +389,6 @@
     .rs__content { padding-left: 0; max-width: none; }
     .rs__author { margin-bottom: 24px; }
     .rs-product { width: 100%; max-width: none; }
-    .rs__dots { padding-left: 0; justify-content: center; }
     .rs-compare__handle { width: 12px; height: 12px; }
     .rs--full .rs__content { padding: 0 20px; }
   }
@@ -568,6 +571,7 @@
 
     { "type": "header", "content": "Product card" },
     { "type": "checkbox", "id": "show_price", "label": "Show price", "default": true },
+    { "type": "range", "id": "card_width", "label": "Card width", "min": 280, "max": 520, "step": 10, "unit": "px", "default": 380, "info": "Wide enough for 2-line product names." },
     { "type": "range", "id": "thumb_size", "label": "Product image size", "min": 60, "max": 160, "step": 4, "unit": "px", "default": 96, "info": "Image spans from the product name to \"Shop now\"." },
     { "type": "color", "id": "card_border_color", "label": "Border color", "default": "#d9d9d9" },
     { "type": "color", "id": "card_border_hover_color", "label": "Border color on hover", "default": "#999999" },
