@@ -1275,7 +1275,7 @@
             "eyebrow": "",
             "heading": "",
             "product": "genius-liquid-collagen",
-            "product_title": "",
+            "product_title": "GENIUS Liquid Collagen©Serum",
             "button_label": "Shop now",
             "before_image": "shopify://shop_images/GLC-Before.jpg",
             "after_image": "shopify://shop_images/GLC-After.jpg",
@@ -1289,7 +1289,7 @@
             "eyebrow": "",
             "heading": "",
             "product": "genius-ultimate-anti-aging-vitamin-c-serum",
-            "product_title": "",
+            "product_title": "<b>GENIUS Ultimate Anti-Aging</b><br>Vitamin C +  Serum",
             "button_label": "Shop now",
             "before_image": "shopify://shop_images/VitaminC-Before.jpg",
             "after_image": "shopify://shop_images/VitaminC-After.jpg",
@@ -1303,8 +1303,10 @@
             "eyebrow": "",
             "heading": "",
             "product": "green-microalgae-retinol-regenerating-serum",
-            "product_title": "",
+            "product_title": "<b>GENIUS MICROALGAE RETINOL +</b><br>Regenerating Serum",
             "button_label": "Shop now",
+            "before_image": "shopify://shop_images/RETINOL-Before.jpg",
+            "after_image": "shopify://shop_images/RETINOL-After.jpg",
             "quote": "It absorbs nicely into my skin and my skin feels smoother and my fine lines look plumper and more hydrated.",
             "author": "Michelle"
           }
@@ -1315,8 +1317,10 @@
             "eyebrow": "",
             "heading": "",
             "product": "genius-forever-firm-concentrated-face-serum",
-            "product_title": "",
+            "product_title": "<b>GENIUS Forever Firm<sup>™</sup></b><br>Concentrated Face Serum",
             "button_label": "Shop now",
+            "before_image": "shopify://shop_images/FF-Before.jpg",
+            "after_image": "shopify://shop_images/FF-After.jpg",
             "quote": "It feels lightweight, absorbs quickly, and leaves my skin feeling smooth, hydrated, and refreshed.",
             "author": "Stephanie"
           }
