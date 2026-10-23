@@ -236,7 +236,7 @@
   /* Product card */
   .rs-product {
     display: inline-flex;
-    align-items: flex-start; /* thumbnail top lines up with the product name */
+    align-items: stretch; /* thumbnail spans the full text block */
     gap: 12px;
     min-width: 260px;
     max-width: 320px;
@@ -248,16 +248,19 @@
     transition: border-color .2s ease;
   }
   .rs-product:hover { border-color: var(--rs-card-border-hover, #999999); }
-  /* Fixed-size thumbnail: same height on every slide, regardless of text length */
+  /* Thumbnail: square, as tall as the text block.
+     Top meets the product name, bottom meets the "Shop now" text. */
   .rs-product__img {
     flex: none;
-    width: 52px;
-    height: 52px;
-    margin-top: 3px; /* offsets the title's line-height so the box top meets the text top */
+    position: relative;
+    width: 72px; /* fallback; script keeps width = height so it stays square */
+    margin: 3px 0 0;
     overflow: hidden;
     background: #f3f3f3;
   }
   .rs-product .rs-product__img img {
+    position: absolute;
+    inset: 0;
     display: block;
     width: 100%;
     height: 100%;
@@ -405,6 +408,9 @@
         // Swipe between slides (on the text side, not the compare image)
         this.initSwipe();
 
+        // Product thumbnails: stretch to the text height (CSS), keep square (here)
+        this.initThumbs();
+
         // Autoplay
         const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (this.dataset.autoplay === 'true' && this.slides.length > 1 && !reduced) {
@@ -425,6 +431,7 @@
 
       disconnectedCallback() {
         this.stopAutoplay(true);
+        if (this.thumbObserver) this.thumbObserver.disconnect();
         document.removeEventListener('shopify:block:select', this.onBlockSelect);
       }
 
@@ -486,6 +493,18 @@
           el.addEventListener(t, () => { dragging = false; })
         );
         if (range) range.addEventListener('input', () => set(parseFloat(range.value)));
+      }
+
+      initThumbs() {
+        const thumbs = this.querySelectorAll('.rs-product__img');
+        if (!thumbs.length || !('ResizeObserver' in window)) return;
+        this.thumbObserver = new ResizeObserver((entries) => {
+          entries.forEach((entry) => {
+            const h = Math.round(entry.target.getBoundingClientRect().height);
+            if (h > 0 && entry.target.style.width !== h + 'px') entry.target.style.width = h + 'px';
+          });
+        });
+        thumbs.forEach((el) => this.thumbObserver.observe(el));
       }
 
       initSwipe() {
