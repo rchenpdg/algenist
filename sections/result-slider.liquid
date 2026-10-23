@@ -1,0 +1,568 @@
+{%- comment -%}
+  ============================================================
+  ALGENIST — "Real Results" Before/After Slider
+  File location: sections/results-slider.liquid
+
+  What's in this file (top to bottom):
+    1. HTML / Liquid markup ........ the slider + before/after compare
+    2. {% stylesheet %} ............ all styling (scoped to .rs)
+    3. {% javascript %} ............ slide switching, dots, swipe,
+                                     autoplay, drag-to-compare
+    4. {% schema %} ................ Theme Editor settings + "Slide" block
+                                     (product, before image, after image,
+                                     quote, reviewer name)
+  ============================================================
+{%- endcomment -%}
+
+{%- liquid
+  assign slide_count = section.blocks.size
+-%}
+
+{%- if slide_count > 0 -%}
+<results-slider
+  class="rs"
+  data-section-id="{{ section.id }}"
+  data-autoplay="{{ section.settings.autoplay }}"
+  data-speed="{{ section.settings.autoplay_speed | times: 1000 }}"
+  style="
+    --rs-accent: {{ section.settings.accent_color }};
+    --rs-bg: {{ section.settings.background_color }};
+    --rs-text: {{ section.settings.text_color }};
+    --rs-ratio: {{ section.settings.image_ratio }};
+    --rs-pad-top: {{ section.settings.padding_top }}px;
+    --rs-pad-bottom: {{ section.settings.padding_bottom }}px;
+  "
+  role="region"
+  aria-roledescription="carousel"
+  aria-label="{{ section.settings.heading | escape }}"
+>
+  <div class="rs__inner">
+    <div class="rs__track">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign current = forloop.index0
+          assign rs_product = block.settings.product
+          if forloop.first
+            assign img_loading = 'eager'
+            assign heading_tag = 'h2'
+          else
+            assign img_loading = 'lazy'
+            assign heading_tag = 'p'
+          endif
+        -%}
+
+        <div
+          class="rs__slide{% if forloop.first %} is-active{% endif %}"
+          data-index="{{ current }}"
+          role="group"
+          aria-roledescription="slide"
+          aria-label="{{ forloop.index }} of {{ slide_count }}"
+          {% unless forloop.first %}aria-hidden="true" inert{% endunless %}
+          {{ block.shopify_attributes }}
+        >
+          {%- comment -%} ---------- LEFT: text + product card ---------- {%- endcomment -%}
+          <div class="rs__content">
+            {%- if section.settings.eyebrow != blank -%}
+              <p class="rs__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+            {%- endif -%}
+            {%- if section.settings.heading != blank -%}
+              <{{ heading_tag }} class="rs__heading">{{ section.settings.heading | escape }}</{{ heading_tag }}>
+            {%- endif -%}
+
+            {%- if block.settings.quote != blank -%}
+              <blockquote class="rs__quote">&ldquo;{{ block.settings.quote | escape }}&rdquo;</blockquote>
+            {%- endif -%}
+            {%- if block.settings.author != blank -%}
+              <p class="rs__author">{{ block.settings.author | escape }}</p>
+            {%- endif -%}
+
+            {%- if rs_product != blank -%}
+              <a href="{{ rs_product.url }}" class="rs-product">
+                <span class="rs-product__img">
+                  {%- if rs_product.featured_image -%}
+                    {{ rs_product.featured_image | image_url: width: 160 | image_tag: loading: 'lazy' }}
+                  {%- endif -%}
+                </span>
+                <span class="rs-product__info">
+                  <span class="rs-product__title">{{ block.settings.product_title | default: rs_product.title }}</span>
+                  {%- if section.settings.show_price -%}
+                    <span class="rs-product__price">{{ rs_product.price | money }}</span>
+                  {%- endif -%}
+                  <span class="rs-product__cta">{{ block.settings.button_label | default: 'Shop now' }}</span>
+                </span>
+              </a>
+            {%- endif -%}
+
+            {%- if slide_count > 1 -%}
+              <div class="rs__dots">
+                {%- for dot in section.blocks -%}
+                  <button
+                    type="button"
+                    class="rs__dot{% if forloop.index0 == current %} is-active{% endif %}"
+                    data-go="{{ forloop.index0 }}"
+                    aria-label="Show slide {{ forloop.index }} of {{ slide_count }}"
+                    {% if forloop.index0 == current %}aria-current="true"{% endif %}
+                  ></button>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+          </div>
+
+          {%- comment -%} ---------- RIGHT: before / after compare ---------- {%- endcomment -%}
+          <div class="rs__media">
+            <div class="rs-compare" style="--pos: {{ section.settings.start_position }}%;">
+              <div class="rs-compare__after">
+                {%- if block.settings.after_image != blank -%}
+                  {{ block.settings.after_image | image_url: width: 1600 | image_tag: widths: '600, 900, 1200, 1600', sizes: '(min-width: 990px) 50vw, 100vw', loading: img_loading, class: 'rs-compare__img', draggable: 'false' }}
+                {%- else -%}
+                  {{ 'lifestyle-2' | placeholder_svg_tag: 'rs-compare__img rs-compare__placeholder' }}
+                {%- endif -%}
+              </div>
+              <div class="rs-compare__before">
+                {%- if block.settings.before_image != blank -%}
+                  {{ block.settings.before_image | image_url: width: 1600 | image_tag: widths: '600, 900, 1200, 1600', sizes: '(min-width: 990px) 50vw, 100vw', loading: img_loading, class: 'rs-compare__img', draggable: 'false' }}
+                {%- else -%}
+                  {{ 'lifestyle-1' | placeholder_svg_tag: 'rs-compare__img rs-compare__placeholder' }}
+                {%- endif -%}
+              </div>
+
+              {%- if section.settings.show_labels -%}
+                <span class="rs-compare__label rs-compare__label--before">{{ section.settings.before_label | escape }}</span>
+                <span class="rs-compare__label rs-compare__label--after">{{ section.settings.after_label | escape }}</span>
+              {%- endif -%}
+
+              <input
+                type="range"
+                class="rs-compare__range"
+                min="0"
+                max="100"
+                step="1"
+                value="{{ section.settings.start_position }}"
+                aria-label="Drag to compare before and after"
+              >
+              <div class="rs-compare__divider" aria-hidden="true">
+                <span class="rs-compare__handle">
+                  <svg width="10" height="16" viewBox="0 0 10 16" fill="none"><path d="M8 2L2 8l6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg width="10" height="16" viewBox="0 0 10 16" fill="none"><path d="M2 2l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</results-slider>
+{%- endif -%}
+
+{% stylesheet %}
+  .rs {
+    display: block;
+    background: var(--rs-bg, #fff);
+    color: var(--rs-text, #111);
+    padding: var(--rs-pad-top, 48px) 0 var(--rs-pad-bottom, 48px);
+  }
+  .rs__inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .rs__track { display: grid; }
+
+  /* Slides stack in the same grid cell and cross-fade */
+  .rs__slide {
+    grid-area: 1 / 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s ease, visibility 0s linear .5s;
+  }
+  .rs__slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .5s ease;
+  }
+
+  /* Left column */
+  .rs__content {
+    padding-left: clamp(0px, 8vw, 150px);
+    max-width: 560px;
+  }
+  .rs__eyebrow {
+    margin: 0;
+    color: var(--rs-accent);
+    font-size: 13px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .rs__heading {
+    margin: 14px 0 20px;
+    font-size: clamp(30px, 3.2vw, 44px);
+    line-height: 1.1;
+    font-weight: 400;
+    color: inherit;
+  }
+  .rs__quote {
+    margin: 0 0 28px;
+    padding: 0;
+    border: 0;
+    font-size: 16px;
+    line-height: 1.6;
+    font-style: normal;
+  }
+  .rs__author {
+    margin: 0 0 36px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+  }
+
+  /* Product card */
+  .rs-product {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 260px;
+    max-width: 320px;
+    padding: 12px 18px 12px 10px;
+    border: 1px solid rgba(0,0,0,.15);
+    color: inherit;
+    text-decoration: none;
+    background: #fff;
+    transition: border-color .2s ease;
+  }
+  .rs-product:hover { border-color: rgba(0,0,0,.4); }
+  .rs-product__img {
+    flex: none;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f3f3f3;
+  }
+  .rs-product__img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .rs-product__info { display: flex; flex-direction: column; gap: 2px; }
+  .rs-product__title { font-size: 14px; line-height: 1.35; }
+  .rs-product__price { font-size: 14px; }
+  .rs-product__cta {
+    margin-top: 6px;
+    font-size: 13px;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Dots */
+  .rs__dots { display: flex; gap: 2px; margin-top: 20px; padding-left: 90px; }
+  .rs__dot {
+    width: 20px; height: 20px;
+    padding: 0; border: 0; background: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .rs__dot::before {
+    content: "";
+    width: 9px; height: 9px; border-radius: 50%;
+    background: #cfcfcf;
+    transition: background .2s ease;
+  }
+  .rs__dot.is-active::before { background: var(--rs-accent); }
+  .rs__dot:focus-visible { outline: 2px solid var(--rs-accent); outline-offset: 2px; border-radius: 50%; }
+
+  /* Before / after compare */
+  .rs-compare {
+    position: relative;
+    aspect-ratio: var(--rs-ratio, 1 / 1);
+    overflow: hidden;
+    border-radius: 4px;
+    background: #eee;
+    cursor: ew-resize;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .rs-compare__after,
+  .rs-compare__before { position: absolute; inset: 0; }
+  .rs-compare__before { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+  .rs-compare__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    -webkit-user-drag: none;
+    pointer-events: none;
+  }
+  .rs-compare__placeholder { background: #e8e8e8; }
+  .rs-compare__label {
+    position: absolute;
+    top: 18px;
+    z-index: 2;
+    padding: 6px 10px;
+    background: var(--rs-accent);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+  .rs-compare__label--before { left: 18px; }
+  .rs-compare__label--after { right: 18px; }
+  .rs-compare__divider {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: var(--pos);
+    z-index: 2;
+    width: 2px;
+    background: #fff;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .rs-compare__handle {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 64px; height: 64px;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--rs-accent);
+    box-shadow: 0 2px 12px rgba(0,0,0,.12);
+    transform: translate(-50%, -50%);
+  }
+  /* Keyboard-accessible slider input, visually hidden */
+  .rs-compare__range {
+    position: absolute;
+    width: 1px; height: 1px;
+    margin: 0; padding: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+  .rs-compare__range:focus-visible ~ .rs-compare__divider .rs-compare__handle {
+    outline: 2px solid var(--rs-accent);
+    outline-offset: 3px;
+  }
+
+  /* Tablet & mobile: image on top, text below */
+  @media (max-width: 989px) {
+    .rs__slide { grid-template-columns: 1fr; gap: 28px; }
+    .rs__media { order: -1; }
+    .rs__content { padding-left: 0; max-width: none; }
+    .rs__author { margin-bottom: 24px; }
+    .rs-product { width: 100%; max-width: none; }
+    .rs__dots { padding-left: 0; justify-content: center; }
+    .rs-compare__handle { width: 48px; height: 48px; gap: 8px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rs__slide, .rs__slide.is-active { transition: none; }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  if (!customElements.get('results-slider')) {
+    class ResultsSlider extends HTMLElement {
+      connectedCallback() {
+        this.slides = Array.from(this.querySelectorAll('.rs__slide'));
+        this.current = 0;
+        this.userStopped = false;
+
+        // Dots
+        this.addEventListener('click', (e) => {
+          const dot = e.target.closest('[data-go]');
+          if (!dot) return;
+          this.stopAutoplay(true);
+          this.goTo(parseInt(dot.dataset.go, 10));
+        });
+
+        // Before/after drag on every slide
+        this.querySelectorAll('.rs-compare').forEach((el) => this.initCompare(el));
+
+        // Swipe between slides (on the text side, not the compare image)
+        this.initSwipe();
+
+        // Autoplay
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (this.dataset.autoplay === 'true' && this.slides.length > 1 && !reduced) {
+          this.startAutoplay();
+          this.addEventListener('mouseenter', () => this.stopAutoplay());
+          this.addEventListener('mouseleave', () => this.startAutoplay());
+          this.addEventListener('focusin', () => this.stopAutoplay());
+        }
+
+        // Theme Editor: clicking a Slide block shows that slide
+        this.onBlockSelect = (e) => {
+          if (e.detail.sectionId !== this.dataset.sectionId) return;
+          const i = this.slides.indexOf(e.target);
+          if (i > -1) { this.stopAutoplay(true); this.goTo(i); }
+        };
+        document.addEventListener('shopify:block:select', this.onBlockSelect);
+      }
+
+      disconnectedCallback() {
+        this.stopAutoplay(true);
+        document.removeEventListener('shopify:block:select', this.onBlockSelect);
+      }
+
+      goTo(index) {
+        const n = this.slides.length;
+        const i = ((index % n) + n) % n;
+        this.slides.forEach((slide, idx) => {
+          const active = idx === i;
+          slide.classList.toggle('is-active', active);
+          slide.toggleAttribute('inert', !active);
+          if (active) slide.removeAttribute('aria-hidden');
+          else slide.setAttribute('aria-hidden', 'true');
+        });
+        this.querySelectorAll('[data-go]').forEach((dot) => {
+          const on = parseInt(dot.dataset.go, 10) === i;
+          dot.classList.toggle('is-active', on);
+          if (on) dot.setAttribute('aria-current', 'true');
+          else dot.removeAttribute('aria-current');
+        });
+        this.current = i;
+      }
+
+      startAutoplay() {
+        if (this.userStopped || this.timer) return;
+        const speed = parseInt(this.dataset.speed, 10) || 6000;
+        this.timer = setInterval(() => this.goTo(this.current + 1), speed);
+      }
+
+      stopAutoplay(permanent) {
+        if (permanent) this.userStopped = true;
+        clearInterval(this.timer);
+        this.timer = null;
+      }
+
+      initCompare(el) {
+        const range = el.querySelector('.rs-compare__range');
+        let dragging = false;
+
+        const set = (pct) => {
+          const v = Math.max(0, Math.min(100, pct));
+          el.style.setProperty('--pos', v + '%');
+          if (range) range.value = v;
+        };
+        const fromPointer = (e) => {
+          const r = el.getBoundingClientRect();
+          set(((e.clientX - r.left) / r.width) * 100);
+        };
+
+        el.addEventListener('pointerdown', (e) => {
+          if (e.pointerType === 'mouse' && e.button !== 0) return;
+          if (e.pointerType === 'mouse') e.preventDefault();
+          dragging = true;
+          el.setPointerCapture(e.pointerId);
+          fromPointer(e);
+          this.stopAutoplay(true);
+        });
+        el.addEventListener('pointermove', (e) => { if (dragging) fromPointer(e); });
+        ['pointerup', 'pointercancel', 'lostpointercapture'].forEach((t) =>
+          el.addEventListener(t, () => { dragging = false; })
+        );
+        if (range) range.addEventListener('input', () => set(parseFloat(range.value)));
+      }
+
+      initSwipe() {
+        let startX = null, startY = null;
+        this.addEventListener('touchstart', (e) => {
+          if (e.target.closest('.rs-compare')) { startX = null; return; }
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+        }, { passive: true });
+        this.addEventListener('touchend', (e) => {
+          if (startX === null) return;
+          const dx = e.changedTouches[0].clientX - startX;
+          const dy = e.changedTouches[0].clientY - startY;
+          if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+            this.stopAutoplay(true);
+            this.goTo(this.current + (dx < 0 ? 1 : -1));
+          }
+          startX = null;
+        });
+      }
+    }
+    customElements.define('results-slider', ResultsSlider);
+  }
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Results slider",
+  "tag": "section",
+  "class": "section section-results-slider",
+  "settings": [
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Breakthrough skin care born from algae" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Real Results in just 10 days" },
+
+    { "type": "header", "content": "Before / after" },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image shape",
+      "options": [
+        { "value": "1 / 1", "label": "Square" },
+        { "value": "4 / 5", "label": "Portrait" },
+        { "value": "5 / 4", "label": "Landscape" }
+      ],
+      "default": "1 / 1"
+    },
+    { "type": "range", "id": "start_position", "label": "Starting divider position", "min": 10, "max": 90, "step": 5, "unit": "%", "default": 50 },
+    { "type": "checkbox", "id": "show_labels", "label": "Show Before / After labels", "default": true },
+    { "type": "text", "id": "before_label", "label": "Before label", "default": "Before" },
+    { "type": "text", "id": "after_label", "label": "After label", "default": "After" },
+
+    { "type": "header", "content": "Product card" },
+    { "type": "checkbox", "id": "show_price", "label": "Show price", "default": true },
+
+    { "type": "header", "content": "Slider" },
+    { "type": "checkbox", "id": "autoplay", "label": "Auto-rotate slides", "default": false },
+    { "type": "range", "id": "autoplay_speed", "label": "Change slide every", "min": 3, "max": 12, "step": 1, "unit": "s", "default": 6 },
+
+    { "type": "header", "content": "Colors & spacing" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#3f7f78" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#111111" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        { "type": "header", "content": "Product" },
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "product_title", "label": "Product name override", "info": "Leave blank to use the product's title" },
+        { "type": "text", "id": "button_label", "label": "Link text", "default": "Shop now" },
+
+        { "type": "header", "content": "Before / after images", "info": "Use the same size and crop for both images so they line up." },
+        { "type": "image_picker", "id": "before_image", "label": "Before image" },
+        { "type": "image_picker", "id": "after_image", "label": "After image" },
+
+        { "type": "header", "content": "Review" },
+        { "type": "textarea", "id": "quote", "label": "Quote" },
+        { "type": "text", "id": "author", "label": "Reviewer name" }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Results slider",
+      "blocks": [
+        { "type": "slide", "settings": { "quote": "My skin looks more radiant, skin tone looks even and most importantly fine lines are reduced.", "author": "Nancy S." } },
+        { "type": "slide", "settings": { "quote": "My skin tone is more even, wrinkles aren't as noticeable, and my skin looks and feels radiant!", "author": "Emily" } },
+        { "type": "slide", "settings": { "quote": "It absorbs nicely into my skin and my skin feels smoother and my fine lines look plumper and more hydrated.", "author": "Michelle" } },
+        { "type": "slide", "settings": { "quote": "It feels lightweight, absorbs quickly, and leaves my skin feeling smooth, hydrated, and refreshed.", "author": "Stephanie" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
